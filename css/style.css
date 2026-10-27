@@ -125,16 +125,16 @@ footer p {
   padding: 1rem;
 }
 
-/* A photo placeholder. We have no photo files, so instead of an <img> tag
-   pointing at a file that does not exist, this coloured block stands in
-   for a photo, with a short caption as its text. */
+/* A photo in a card. Real photos live in the images/ folder, and
+   object-fit: cover crops each one to the same height so the card
+   row stays even. The Karura photo is the student's own picture;
+   the rest are freely licensed Wikimedia Commons photos. */
 .photo {
-  background-color: #0F5E5C;
-  color: #FFFFFF;
-  text-align: center;
-  padding: 3rem 1rem;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
   border-radius: 8px;
-  font-weight: bold;
 }
 
 /* A call-to-action button: a link styled to look like a button. */
