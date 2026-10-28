@@ -1,7 +1,7 @@
-/* House style — main #0F5E5C ground #F7F0E3 ink #1E2A2A accent #E8734A headings: Georgia, serif body: Arial, Helvetica, sans-serif */
-/* House style explained: main is the deep teal used for the header and headings,
-   ground is the warm sand page background, ink is the dark text colour,
-   accent is the sunset orange used only for buttons and small highlights.
+/* House style — main #1B4332 ground #F8F5E9 ink #1E2A24 accent #B7791F headings: Georgia, serif body: Arial, Helvetica, sans-serif */
+/* House style explained: main is the deep forest green used for the header and headings,
+   ground is the soft cream page background, ink is the dark text colour,
+   accent is the gold used only for buttons and small highlights.
    Headings use Georgia (a serif font), body text uses Arial (a sans-serif font). */
 
 /* This rule makes padding and borders count INSIDE an element's width.
@@ -19,8 +19,8 @@
    the screen, which is what makes a page scroll sideways. */
 body {
   margin: 0;
-  background-color: #F7F0E3;
-  color: #1E2A2A;
+  background-color: #F8F5E9;
+  color: #1E2A24;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.6;
   display: grid;
@@ -35,7 +35,7 @@ body {
 /* grid-area drops each section into the named slot from the grid above. */
 header {
   grid-area: header;
-  background-color: #0F5E5C;
+  background-color: #1B4332;
   color: #FFFFFF;
   padding: 1.5rem;
 }
@@ -48,7 +48,7 @@ header h1 {
 /* The nav bar sits in its own grid row, in the dark ink colour. */
 nav {
   grid-area: nav;
-  background-color: #1E2A2A;
+  background-color: #1E2A24;
   padding: 0.5rem 1.5rem;
 }
 
@@ -69,7 +69,7 @@ nav a {
 }
 
 nav a:hover {
-  color: #E8734A;
+  color: #B7791F;
 }
 
 /* The main content column. */
@@ -82,13 +82,13 @@ main {
 aside {
   grid-area: aside;
   background-color: #FFFFFF;
-  border-left: 4px solid #E8734A;
+  border-left: 4px solid #B7791F;
   padding: 1.5rem;
 }
 
 footer {
   grid-area: footer;
-  background-color: #1E2A2A;
+  background-color: #1E2A24;
   color: #FFFFFF;
   text-align: center;
   padding: 1rem;
@@ -97,7 +97,7 @@ footer {
 h2,
 h3 {
   font-family: Georgia, serif;
-  color: #0F5E5C;
+  color: #1B4332;
 }
 
 /* Headings inside the dark header and footer stay readable on dark colours. */
@@ -120,7 +120,7 @@ footer p {
 .card {
   flex: 1 1 16rem;
   background-color: #FFFFFF;
-  border: 1px solid #0F5E5C;
+  border: 1px solid #1B4332;
   border-radius: 8px;
   padding: 1rem;
 }
@@ -140,7 +140,7 @@ footer p {
 /* A call-to-action button: a link styled to look like a button. */
 .button {
   display: inline-block;
-  background-color: #E8734A;
+  background-color: #B7791F;
   color: #FFFFFF;
   text-decoration: none;
   font-weight: bold;
@@ -162,19 +162,19 @@ table {
 
 th,
 td {
-  border: 1px solid #0F5E5C;
+  border: 1px solid #1B4332;
   padding: 0.5rem;
   text-align: left;
 }
 
 thead th {
-  background-color: #0F5E5C;
+  background-color: #1B4332;
   color: #FFFFFF;
 }
 
 tfoot td {
   font-weight: bold;
-  background-color: #F7F0E3;
+  background-color: #F8F5E9;
 }
 
 /* Form labels sit on their own line above each control. */
@@ -198,14 +198,14 @@ select,
 textarea {
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid #0F5E5C;
+  border: 1px solid #1B4332;
   border-radius: 4px;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* The submit button uses the sunset accent colour. */
+/* The submit button uses the gold accent colour. */
 button {
-  background-color: #E8734A;
+  background-color: #B7791F;
   color: #FFFFFF;
   font-weight: bold;
   border: none;
@@ -238,6 +238,6 @@ button {
 
   aside {
     border-left: none;
-    border-top: 4px solid #E8734A;
+    border-top: 4px solid #B7791F;
   }
 }
