@@ -34,23 +34,22 @@
 
   <!-- main: this page's own content. -->
   <main>
+    <!-- One section under one heading: the intro, then the form.
+         (The page used to repeat the heading "Request a guide" twice.) -->
     <section>
       <h2>Request a guide</h2>
       <p>Tell us about your trip and we will match you with a verified guide. Fields
         marked with * must be filled in before the form can be sent.</p>
-    </section>
 
-    <!-- The form. action="#" and method="get" are used on purpose: no backend
-         exists yet, so the form does not really send anywhere — "#" just reloads
-         this page and "get" would put the answers in the address bar. When a
-         backend is built later, action will point to it and method will change. -->
-    <!-- How validation works here: required stops an empty field being sent;
-         type="email" makes the browser check for an @ sign and a domain;
-         pattern checks the phone number against a rule we wrote; min and max
-         set the allowed range for dates and numbers. The browser does all of
-         this with no JavaScript, which is why this assignment is HTML only. -->
-    <section>
-      <h2>Request a guide</h2>
+      <!-- The form. action="#" and method="get" are used on purpose: no backend
+           exists yet, so the form does not really send anywhere — "#" just reloads
+           this page and "get" would put the answers in the address bar. When a
+           backend is built later, action will point to it and method will change. -->
+      <!-- How validation works here: required stops an empty field being sent;
+           type="email" makes the browser check for an @ sign and a domain;
+           pattern checks the phone number against a rule we wrote; min and max
+           set the allowed range for dates and numbers. The browser does all of
+           this with no JavaScript, which is why this assignment is HTML only. -->
       <form action="#" method="get">
         <!-- label's for matches the control's id. Clicking the label then puts
              the cursor in the right box, and screen readers can announce which
