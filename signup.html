@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- signup.html — the "sign up" page. -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- viewport: phones use their real width, so the one-column layout in the
+       media query takes over at 700px and below. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign up — NativeGo</title>
+  <!-- The one shared stylesheet, linked from every page. -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- header: same banner as every page. -->
+  <header>
+    <h1>NativeGo</h1>
+    <p>Travel Kenya with a verified local guide by your side.</p>
+  </header>
+
+  <!-- nav: same menu as every page, one Flexbox row with no bullets. -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="guides.html">Guides</a></li>
+      <li><a href="experiences.html">Experiences</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="request.html">Request a Guide</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="login.html">Log in</a></li>
+      <li><a href="signup.html">Sign up</a></li>
+    </ul>
+  </nav>
+
+  <!-- main: this page's own content. -->
+  <main>
+    <section>
+      <h2>Sign up</h2>
+      <p>Create a free NativeGo account in about a minute. You can sign up as
+        a tourist, to find and book local guides, or as a local provider, to
+        offer your guiding services to visitors.</p>
+      <!-- Creating an account happens on the secure NativeGo system page,
+           where your details are saved and your password is stored safely.
+           That page is part of the NativeGo system, which runs the accounts,
+           requests and bookings behind this website. The button below
+           takes you there. -->
+      <p><a class="button" href="http://localhost:5050/signup">Create your account</a></p>
+      <p>Already have an account? <a href="login.html">Log in</a> instead.</p>
+    </section>
+
+    <!-- The two kinds of account, so a visitor picks the right one. -->
+    <section>
+      <h2>Two kinds of account</h2>
+      <div class="cards">
+        <article class="card">
+          <h3>Tourist</h3>
+          <p>Find verified local guides by place and service, send a request,
+            chat with your guide, and leave a review after your trip.</p>
+        </article>
+        <article class="card">
+          <h3>Local provider</h3>
+          <p>Offer your guiding services, set when you are free, and accept
+            requests from visitors. Your profile stays hidden until an
+            administrator checks your documents and approves you.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- aside: what a new account needs, so the side column is useful. -->
+  <aside>
+    <h2>What you need</h2>
+    <p>Just your name, an email address, and a password of at least
+      8 characters.</p>
+    <p>Providers also add their services, rates and a photo, and upload an
+      identity document or certificate for verification.</p>
+  </aside>
+
+  <!-- footer: same on every page. -->
+  <footer>
+    <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
+  </footer>
+</body>
+</html>
