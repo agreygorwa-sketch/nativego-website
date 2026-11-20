@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- admin.html — the administrator dashboard (FR-15 to FR-19, wireframe 4.12). -->
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrator — NativeGo</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>NativeGo</h1>
+    <p>Travel Kenya with a verified local guide by your side.</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="guides.html">Guides</a></li>
+      <li><a href="experiences.html">Experiences</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="guide/index.html">Simple guide</a></li>
+      <li><a href="request.html">Request a Guide</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="provider-dashboard.html">For providers</a></li>
+      <li><a href="admin.html">Admin</a></li>
+      <li><a href="login.html">Log in</a></li>
+      <li><a href="signup.html">Sign up</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Administrator</h2>
+      <p>The administrator runs the site. Only an admin account can open the
+        admin pages. The admin keeps the marketplace safe: checking providers,
+        managing accounts, handling reports, and watching the numbers.</p>
+    </section>
+
+    <section>
+      <h2>What the administrator does</h2>
+      <table>
+        <caption>Administrator requirements and where they happen</caption>
+        <thead>
+          <tr>
+            <th scope="col">Task</th>
+            <th scope="col">What the admin does</th>
+            <th scope="col">Requirement</th>
+            <th scope="col">What happens</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Log in</th>
+            <td>Log in with admin credentials. The system checks the role is admin before opening the dashboard.</td>
+            <td>FR-15</td>
+            <td>Admin dashboard opens.</td>
+          </tr>
+          <tr>
+            <th scope="row">Approve verifications</th>
+            <td>Look at a provider's documents and approve or reject them, with a reason.</td>
+            <td>FR-16</td>
+            <td>Approved providers become visible to tourists; rejected ones get a reason.</td>
+          </tr>
+          <tr>
+            <th scope="row">Manage accounts</th>
+            <td>Suspend or activate any account.</td>
+            <td>FR-17</td>
+            <td>The account flag changes; a suspended account cannot log in.</td>
+          </tr>
+          <tr>
+            <th scope="row">Handle reports</th>
+            <td>Read reported cases, look at the messages and the request, and decide: warn, suspend, or close the case.</td>
+            <td>FR-18</td>
+            <td>Case closed; both sides are told.</td>
+          </tr>
+          <tr>
+            <th scope="row">View statistics</th>
+            <td>See the totals: accounts, requests, reviews, and recent activity.</td>
+            <td>FR-19</td>
+            <td>A statistics dashboard with the counts.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Open the admin dashboard</h2>
+      <p>The admin pages live on the live system, not on this static site,
+        because they change the database and need an admin login. Open the
+        <a href="http://localhost:5050/admin">admin dashboard</a> on the live
+        system. The demo admin account is
+        <code>admin@nativego.co.ke</code>. The admin area also keeps an
+        activity log — a diary of who did what — so every decision is recorded.</p>
+    </section>
+  </main>
+
+  <aside>
+    <h2>Admin only</h2>
+    <p>If a tourist or provider tries to open an admin page, they are refused.
+      Role checks run on every admin page, not just at login.</p>
+  </aside>
+
+  <footer>
+    <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
+  </footer>
+</body>
+</html>

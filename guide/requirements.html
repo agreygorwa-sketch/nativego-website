@@ -30,6 +30,35 @@
     <h2>How to read this page</h2>
     <p>A requirement is one thing the system must do. "FR" means Functional Requirement — a function is a thing the system does. Each row shows: <strong>Input</strong> (what you type or click), <strong>Process</strong> (what the system does with it), <strong>Output</strong> (what you see after), and <strong>Table</strong> (where it is stored in the database).</p>
 
+    <h2>Where each requirement lives on the website</h2>
+    <p>Every requirement below now has a page on the website. This is the trace — requirement to page.</p>
+    <table>
+      <tr><th>Requirement</th><th>Website page</th></tr>
+      <tr><td>FR-01 Tourist register</td><td><a href="../signup.html">Sign up</a></td></tr>
+      <tr><td>FR-02 Tourist log in / out</td><td><a href="../login.html">Log in</a></td></tr>
+      <tr><td>FR-03 Search verified providers</td><td><a href="../guides.html">Guides</a> (search form at the top)</td></tr>
+      <tr><td>FR-04 View provider profile</td><td><a href="../provider.html">Provider profile</a></td></tr>
+      <tr><td>FR-05 Send a service request</td><td><a href="../request.html">Request a Guide</a> (booking flow)</td></tr>
+      <tr><td>FR-06 Exchange messages</td><td><a href="../messages.html">Messages</a></td></tr>
+      <tr><td>FR-07 Submit a review</td><td><a href="../reviews.html">Reviews</a></td></tr>
+      <tr><td>FR-08 Report an account</td><td><a href="../report.html">Report a Problem</a></td></tr>
+      <tr><td>FR-09 Provider register</td><td><a href="../signup.html">Sign up</a> and <a href="../provider-dashboard.html">For providers</a></td></tr>
+      <tr><td>FR-10 Provider profile</td><td><a href="../provider-dashboard.html">For providers</a></td></tr>
+      <tr><td>FR-11 Upload verification documents</td><td><a href="../provider-dashboard.html">For providers</a></td></tr>
+      <tr><td>FR-12 Set availability</td><td><a href="../provider-dashboard.html">For providers</a></td></tr>
+      <tr><td>FR-13 Accept / decline requests</td><td><a href="../provider-dashboard.html">For providers</a></td></tr>
+      <tr><td>FR-14 View request history</td><td><a href="../provider-dashboard.html">For providers</a></td></tr>
+      <tr><td>FR-15 Administrator log in</td><td><a href="../login.html">Log in</a> and <a href="../admin.html">Admin</a></td></tr>
+      <tr><td>FR-16 Approve verifications</td><td><a href="../admin.html">Admin</a></td></tr>
+      <tr><td>FR-17 Manage accounts</td><td><a href="../admin.html">Admin</a></td></tr>
+      <tr><td>FR-18 Handle reports</td><td><a href="../admin.html">Admin</a></td></tr>
+      <tr><td>FR-19 View statistics</td><td><a href="../admin.html">Admin</a></td></tr>
+    </table>
+    <p>Pages that change the database (log in, request, message, review, report,
+      provider dashboard, admin) run on the live system at localhost:5050. This
+      static site is the front of the shop; the live system is the till. A page
+      that only shows information (guides, profiles, reviews) works on its own.</p>
+
     <h2>Tourist — FR-01 to FR-08</h2>
     <table>
       <tr><th>ID</th><th>What it does (plain words)</th><th>Input &rarr; Process &rarr; Output</th><th>Database table</th></tr>

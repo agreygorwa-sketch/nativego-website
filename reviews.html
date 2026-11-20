@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!-- reviews.html — the reviews page (FR-07, wireframe 4.11). -->
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reviews — NativeGo</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>NativeGo</h1>
+    <p>Travel Kenya with a verified local guide by your side.</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="guides.html">Guides</a></li>
+      <li><a href="experiences.html">Experiences</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="guide/index.html">Simple guide</a></li>
+      <li><a href="request.html">Request a Guide</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="provider-dashboard.html">For providers</a></li>
+      <li><a href="admin.html">Admin</a></li>
+      <li><a href="login.html">Log in</a></li>
+      <li><a href="signup.html">Sign up</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Reviews</h2>
+      <p>After a trip, a tourist rates the provider 1 to 5 stars and writes a
+        comment. The review is stored, and the provider's average rating is
+        updated. Reviews are how the next tourist decides whom to trust.</p>
+    </section>
+
+    <section>
+      <h2>What tourists said</h2>
+      <table>
+        <caption>Reviews in the system</caption>
+        <thead>
+          <tr>
+            <th scope="col">Provider</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Mara Savannah Safaris</th>
+            <td>5 out of 5</td>
+            <td>"David spotted leopards twice in one day. Best safari of my life!"</td>
+          </tr>
+          <tr>
+            <th scope="row">Mara Savannah Safaris</th>
+            <td>5 out of 5</td>
+            <td>"Professional, punctual, and knows the Mara like the back of his hand."</td>
+          </tr>
+          <tr>
+            <th scope="row">Lamu Dhow Adventures</th>
+            <td>4 out of 5</td>
+            <td>"Magical sunset cruise. The seafood lunch was incredible."</td>
+          </tr>
+          <tr>
+            <th scope="row">Nairobi by Foot</th>
+            <td>5 out of 5</td>
+            <td>"Saw Nairobi in a whole new light. The street food stops were a highlight."</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Average ratings: Mara Savannah Safaris 5.0, Lamu Dhow Adventures 4.0,
+        Nairobi by Foot 5.0. A provider's average is worked out from all their
+        reviews.</p>
+    </section>
+
+    <section>
+      <h2>How to leave a review</h2>
+      <ol>
+        <li>Finish the trip with your guide.</li>
+        <li>Log in, open the provider's profile, and choose to review them.</li>
+        <li>Pick a rating from 1 to 5 and write a short comment.</li>
+        <li>Send it. Your review appears on the provider's profile and the
+          average rating updates straight away.</li>
+      </ol>
+      <p>One tourist can review one provider only once. That stops one person
+        from flooding a profile with many reviews. To leave a review, open the
+        provider on the live system — for example
+        <a href="http://localhost:5050/provider/1">Mara Savannah Safaris</a> —
+        and use the review form there.</p>
+    </section>
+  </main>
+
+  <aside>
+    <h2>Why reviews matter</h2>
+    <p>Reviews are the trust signal. A new tourist cannot meet a guide first,
+      so they read what past tourists said. Honest reviews keep good guides
+      busy and warn others about bad ones.</p>
+  </aside>
+
+  <footer>
+    <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
+  </footer>
+</body>
+</html>

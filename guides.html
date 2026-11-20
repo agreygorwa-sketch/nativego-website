@@ -28,6 +28,9 @@
       <li><a href="guide/index.html">Simple guide</a></li>
       <li><a href="request.html">Request a Guide</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="provider-dashboard.html">For providers</a></li>
+      <li><a href="admin.html">Admin</a></li>
       <li><a href="login.html">Log in</a></li>
       <li><a href="signup.html">Sign up</a></li>
     </ul>
@@ -39,6 +42,55 @@
       <h2>Meet the guides</h2>
       <p>Prices are per day, in Kenya shillings, and cover the guide's time —
         park fees, transport and meals are agreed with the guide before the trip.</p>
+    </section>
+
+    <!-- Search (FR-03). A GET form: the browser sends the answers in the
+         address bar to the live system, which returns only matching verified
+         providers. GET needs no login and no CSRF token, so this form works
+         from this static page when the NativeGo system is running on your
+         computer at localhost:5050. -->
+    <section>
+      <h2>Search verified guides</h2>
+      <p>Search by place, service, or words. Only verified guides are shown.
+        This search runs on the live system, so the system must be running on
+        your computer (see <a href="how-it-works.html">How It Works</a>).</p>
+      <form action="http://localhost:5050/discover" method="get">
+        <label for="q">Search words</label>
+        <input type="text" id="q" name="q" placeholder="Example: safari, dhow, Nairobi">
+
+        <label for="location">Location</label>
+        <select id="location" name="location">
+          <option value="">Anywhere</option>
+          <option value="Maasai Mara">Maasai Mara</option>
+          <option value="Lamu Island">Lamu Island</option>
+          <option value="Nanyuki">Nanyuki</option>
+          <option value="Nairobi">Nairobi</option>
+          <option value="Diani Beach">Diani Beach</option>
+          <option value="Kajiado">Kajiado</option>
+          <option value="Kisumu">Kisumu</option>
+          <option value="Amboseli">Amboseli</option>
+        </select>
+
+        <label for="category">Service</label>
+        <select id="category" name="category">
+          <option value="">Any service</option>
+          <option value="Safari Guide">Safari Guide</option>
+          <option value="Water Sports">Water Sports</option>
+          <option value="Mountain Guide">Mountain Guide</option>
+          <option value="City Tour">City Tour</option>
+          <option value="Cultural Experience">Cultural Experience</option>
+          <option value="Fishing">Fishing</option>
+          <option value="Photography">Photography</option>
+        </select>
+
+        <label for="available">
+          <input type="checkbox" id="available" name="available" value="1"> Only guides free right now
+        </label>
+
+        <button type="submit">Search guides</button>
+      </form>
+      <p>Prefer to browse? The verified guides are listed below. Open a guide
+        to see their full profile, reviews, and how to request them.</p>
     </section>
 
     <!-- Guide profile cards. The row wraps onto new lines on narrow screens. -->

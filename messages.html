@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!-- messages.html — the messaging page (FR-06, wireframe 4.10). -->
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages — NativeGo</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>NativeGo</h1>
+    <p>Travel Kenya with a verified local guide by your side.</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="guides.html">Guides</a></li>
+      <li><a href="experiences.html">Experiences</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="guide/index.html">Simple guide</a></li>
+      <li><a href="request.html">Request a Guide</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="provider-dashboard.html">For providers</a></li>
+      <li><a href="admin.html">Admin</a></li>
+      <li><a href="login.html">Log in</a></li>
+      <li><a href="signup.html">Sign up</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Messages</h2>
+      <p>Once you have a request, you and the guide message each other on that
+        request. You agree the meeting point, the time, and any last details.
+        Every message is stored linked to the request, so the whole conversation
+        stays in one thread.</p>
+    </section>
+
+    <section>
+      <h2>How a message thread looks</h2>
+      <p>Here is an example of a short thread on one request.</p>
+      <table>
+        <caption>Example messages on a Mara safari request</caption>
+        <thead>
+          <tr>
+            <th scope="col">Who</th>
+            <th scope="col">Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Tourist</th>
+            <td>Hello David, we are two adults. Can we meet at the hotel gate at 6 in the morning?</td>
+          </tr>
+          <tr>
+            <th scope="row">Guide</th>
+            <td>Yes, 6 in the morning works. Bring a jacket, it is cold at sunrise. I will bring water.</td>
+          </tr>
+          <tr>
+            <th scope="row">Tourist</th>
+            <td>Thank you. See you at 6.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Messages are private: only the tourist and the provider on that request
+        can see them. The administrator can read messages only to handle a
+        reported problem.</p>
+    </section>
+
+    <section>
+      <h2>How to message</h2>
+      <ol>
+        <li>Log in and open one of your requests.</li>
+        <li>Type your message in the box under the request and send it.</li>
+        <li>The other side sees it in the same thread. New messages are marked
+          unread until they are opened.</li>
+      </ol>
+      <p>To send a real message, open one of your bookings on the live system —
+        <a href="http://localhost:5050/my-requests">My requests</a> — then open
+        the booking and use the message box there.</p>
+    </section>
+  </main>
+
+  <aside>
+    <h2>Keep it on NativeGo</h2>
+    <p>Agreeing details inside the thread keeps a record if anything is
+      disputed later. It also keeps your phone number private until you choose
+      to share it.</p>
+  </aside>
+
+  <footer>
+    <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
+  </footer>
+</body>
+</html>
