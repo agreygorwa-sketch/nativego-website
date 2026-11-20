@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NativeGo — A Simple Guide</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Simple tables for this guide. A table is a grid of rows and columns. */
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #172554; padding: 0.5rem; text-align: left; vertical-align: top; }
+    th { background-color: #1D4ED8; color: #FFFFFF; }
+    code { background: #FFFFFF; padding: 0.1rem 0.3rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NativeGo — A Simple Guide</h1>
+    <p>What the website does, what the database stores, and how it all fits together. Written in plain words.</p>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="../index.html">NativeGo home</a></li>
+      <li><a href="index.html">Guide home</a></li>
+      <li><a href="requirements.html">Requirements</a></li>
+      <li><a href="database.html">Database</a></li>
+      <li><a href="how-it-works.html">How it fits together</a></li>
+    </ul>
+  </nav>
+  <main>
+    <h2>What is NativeGo?</h2>
+    <p>NativeGo is a website that connects tourists visiting Kenya with local people who offer services: safari guides, city tours, mountain guides, water sports, cultural experiences, fishing, and more.</p>
+    <p>The problem it solves is simple. A tourist arrives in Kenya and does not know a trusted local guide. A local guide has the skill but no easy way to be found. NativeGo puts them together on one website.</p>
+
+    <h2>The three people who use it</h2>
+    <p>There are three roles. A role is just a type of user. Each role can do different things.</p>
+    <table>
+      <tr><th>Role</th><th>Who it is</th><th>What they do</th></tr>
+      <tr><td>Tourist</td><td>A visitor to Kenya</td><td>Registers, searches for a guide, sends a request, messages the guide, leaves a review, reports a problem.</td></tr>
+      <tr><td>Local Provider</td><td>A Kenyan guide or host</td><td>Registers, builds a profile, uploads documents to prove who they are, sets when they are free, accepts or declines requests.</td></tr>
+      <tr><td>Administrator</td><td>The person who runs the site</td><td>Logs in, checks provider documents, approves or rejects providers, manages accounts, handles reports, sees statistics.</td></tr>
+    </table>
+
+    <h2>How a website works — the four parts</h2>
+    <p>A website like this has four parts. Each part has one job.</p>
+    <table>
+      <tr><th>Part</th><th>Its one job</th><th>Plain example</th></tr>
+      <tr><td>HTML</td><td>Structure. It says what is on the page.</td><td>A heading, a paragraph, a button, a form box. HTML is the bones.</td></tr>
+      <tr><td>CSS</td><td>Style. It says how the page looks.</td><td>Blue headings, yellow background, the size of the text. CSS is the clothes.</td></tr>
+      <tr><td>Flask (Python)</td><td>Thinking. It takes what you type, checks it, and decides what to do.</td><td>You type an email and password. Flask checks them against the database and lets you in, or says no.</td></tr>
+      <tr><td>Database</td><td>Memory. It stores everything so it is still there tomorrow.</td><td>Your account, the providers, the requests, the reviews. The database remembers.</td></tr>
+    </table>
+    <p>HTML and CSS alone cannot remember anything. When you close the page, they forget. That is why the database is needed: it is the memory. And Flask is the part that talks between the page and the database.</p>
+
+    <h2>What this guide covers</h2>
+    <ul>
+      <li><a href="requirements.html">Requirements</a> — all 19 things the system must do (FR-01 to FR-19), in plain words, with the database table each one uses.</li>
+      <li><a href="database.html">Database</a> — the 8 tables, what each one stores, and the database ideas (table, row, primary key, foreign key) explained simply.</li>
+      <li><a href="how-it-works.html">How it fits together</a> — one full journey, step by step, from a tourist registering to leaving a review, showing which part does what.</li>
+    </ul>
+    <p>Source: the requirements and the database come from the NativeGo project document (Chapters 1–4), Table 4.1 (functional requirements) and Table 4.3 (database tables).</p>
+  </main>
+  <aside>
+    <h2>Quick links</h2>
+    <ul>
+      <li><a href="requirements.html">All 19 requirements</a></li>
+      <li><a href="database.html">The 8 database tables</a></li>
+      <li><a href="how-it-works.html">One full journey</a></li>
+      <li><a href="../index.html">Back to the main site</a></li>
+    </ul>
+  </aside>
+  <footer>
+    <p>NativeGo — a simple guide. Built from the project document, Chapters 1–4.</p>
+  </footer>
+</body>
+</html>

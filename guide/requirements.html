@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NativeGo — All 19 Requirements</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #172554; padding: 0.5rem; text-align: left; vertical-align: top; }
+    th { background-color: #1D4ED8; color: #FFFFFF; }
+    code { background: #FFFFFF; padding: 0.1rem 0.3rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NativeGo — All 19 Requirements</h1>
+    <p>Every thing the system must do, in plain words. Each requirement has an ID (FR-01 to FR-19), what you give it, what it does, what you see, and which database table it uses.</p>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="../index.html">NativeGo home</a></li>
+      <li><a href="index.html">Guide home</a></li>
+      <li><a href="requirements.html">Requirements</a></li>
+      <li><a href="database.html">Database</a></li>
+      <li><a href="how-it-works.html">How it fits together</a></li>
+    </ul>
+  </nav>
+  <main>
+    <h2>How to read this page</h2>
+    <p>A requirement is one thing the system must do. "FR" means Functional Requirement — a function is a thing the system does. Each row shows: <strong>Input</strong> (what you type or click), <strong>Process</strong> (what the system does with it), <strong>Output</strong> (what you see after), and <strong>Table</strong> (where it is stored in the database).</p>
+
+    <h2>Tourist — FR-01 to FR-08</h2>
+    <table>
+      <tr><th>ID</th><th>What it does (plain words)</th><th>Input &rarr; Process &rarr; Output</th><th>Database table</th></tr>
+      <tr><td>FR-01</td><td>Tourist: register an account</td><td>Name, email, password &rarr; check the input, hide the password by hashing it, create the account &rarr; account created, you are logged in</td><td><code>users</code></td></tr>
+      <tr><td>FR-02</td><td>Tourist: log in and log out</td><td>Email, password &rarr; check the password against the stored hash, open a session; clear the session on logout &rarr; you see the tourist pages / your session ends</td><td><code>users</code></td></tr>
+      <tr><td>FR-03</td><td>Tourist: search verified providers by location and service</td><td>Location, service type, availability filter &rarr; look up only verified providers, rank by closeness &rarr; a list of providers with ratings</td><td><code>providers</code>, <code>users</code>, <code>reviews</code></td></tr>
+      <tr><td>FR-04</td><td>Tourist: view a provider profile</td><td>You pick a provider &rarr; fetch the profile, services, and reviews &rarr; the full profile page</td><td><code>providers</code>, <code>reviews</code></td></tr>
+      <tr><td>FR-05</td><td>Tourist: send a service request</td><td>Service type, description, meeting point, time &rarr; create a pending request, tell the provider &rarr; confirmation, with status you can track</td><td><code>requests</code></td></tr>
+      <tr><td>FR-06</td><td>Tourist: exchange messages on a request</td><td>Message text &rarr; store it linked to that request &rarr; the message appears in the thread</td><td><code>messages</code></td></tr>
+      <tr><td>FR-07</td><td>Tourist: submit a review</td><td>Rating (1–5), comment &rarr; check the service is finished, store the review, update the average &rarr; review published, provider rating updated</td><td><code>reviews</code>, <code>providers</code></td></tr>
+      <tr><td>FR-08</td><td>Tourist: report a misbehaving account</td><td>Report reason and details &rarr; store it for the administrator &rarr; confirmation, case queued</td><td><code>reports</code> (in the built system; the document's schema keeps reports for admin review)</td></tr>
+    </table>
+
+    <h2>Local Provider — FR-09 to FR-14</h2>
+    <table>
+      <tr><th>ID</th><th>What it does (plain words)</th><th>Input &rarr; Process &rarr; Output</th><th>Database table</th></tr>
+      <tr><td>FR-09</td><td>Provider: register a provider account</td><td>Name, email, password, services offered &rarr; check the input, create the account and profile &rarr; account created, profile hidden until verification passes</td><td><code>users</code>, <code>providers</code></td></tr>
+      <tr><td>FR-10</td><td>Provider: create and edit a service profile</td><td>Bio, languages, services, rates, photos &rarr; store the profile data &rarr; profile saved</td><td><code>providers</code></td></tr>
+      <tr><td>FR-11</td><td>Provider: upload verification documents</td><td>Identity or certificate files &rarr; check the file type, store the file, mark it pending &rarr; documents queued for the administrator to review</td><td><code>verification_docs</code> (files on disk; the document's schema stores the proof with the provider record)</td></tr>
+      <tr><td>FR-12</td><td>Provider: set availability</td><td>Available days and times &rarr; store the availability &rarr; it shows in search results</td><td><code>providers</code></td></tr>
+      <tr><td>FR-13</td><td>Provider: accept or decline requests</td><td>Accept or decline &rarr; update the request status, tell the tourist &rarr; status change confirmed</td><td><code>requests</code></td></tr>
+      <tr><td>FR-14</td><td>Provider: view request and booking history</td><td>Nothing to type &rarr; look up that provider's requests &rarr; a list in date order</td><td><code>requests</code></td></tr>
+    </table>
+
+    <h2>Administrator — FR-15 to FR-19</h2>
+    <table>
+      <tr><th>ID</th><th>What it does (plain words)</th><th>Input &rarr; Process &rarr; Output</th><th>Database table</th></tr>
+      <tr><td>FR-15</td><td>Administrator: log in</td><td>Administrator email and password &rarr; check the role is admin, open a session &rarr; the dashboard opens</td><td><code>users</code></td></tr>
+      <tr><td>FR-16</td><td>Administrator: approve or reject verifications</td><td>Decision with a reason &rarr; update the provider status, tell the provider &rarr; provider becomes visible to tourists, or is rejected with a reason</td><td><code>providers</code></td></tr>
+      <tr><td>FR-17</td><td>Administrator: manage accounts</td><td>Suspend or activate &rarr; change the account flag &rarr; account status changed</td><td><code>users</code></td></tr>
+      <tr><td>FR-18</td><td>Administrator: handle reported cases</td><td>Review the report, decide &rarr; give a warning or suspend &rarr; case closed, both sides told</td><td><code>reports</code></td></tr>
+      <tr><td>FR-19</td><td>Administrator: view system statistics</td><td>Nothing to type &rarr; count accounts, requests, reviews &rarr; a statistics dashboard</td><td><code>users</code>, <code>requests</code>, <code>reviews</code></td></tr>
+    </table>
+
+    <h2>What "hash password" means (FR-01, FR-02)</h2>
+    <p>Hashing turns a password into a long jumble of letters and numbers that cannot be turned back into the password. The database stores the jumble, never the real password. When you log in, the system hashes what you typed and checks if the two jumbles match. That is why a stolen database does not give away passwords.</p>
+
+    <h2>What "session" means (FR-02, FR-15)</h2>
+    <p>A session is the system's short memory that you are logged in. After you log in, it gives your browser a session so you do not have to type your password on every page. Logging out clears it.</p>
+
+    <p>Source: Table 4.1, Functional requirements of the NativeGo web platform, in the project document (Chapters 1–4).</p>
+  </main>
+  <aside>
+    <h2>Quick links</h2>
+    <ul>
+      <li><a href="index.html">Guide home</a></li>
+      <li><a href="database.html">The 8 database tables</a></li>
+      <li><a href="how-it-works.html">One full journey</a></li>
+      <li><a href="../index.html">Back to the main site</a></li>
+    </ul>
+  </aside>
+  <footer>
+    <p>NativeGo — a simple guide. Built from the project document, Chapters 1–4.</p>
+  </footer>
+</body>
+</html>

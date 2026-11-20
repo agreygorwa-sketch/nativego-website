@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NativeGo — The Database</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td { border: 1px solid #172554; padding: 0.5rem; text-align: left; vertical-align: top; }
+    th { background-color: #1D4ED8; color: #FFFFFF; }
+    code { background: #FFFFFF; padding: 0.1rem 0.3rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NativeGo — The Database</h1>
+    <p>The database is the memory of the website. It is named <code>nativego_db</code>. It has 8 tables. This page explains each one in plain words.</p>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="../index.html">NativeGo home</a></li>
+      <li><a href="index.html">Guide home</a></li>
+      <li><a href="requirements.html">Requirements</a></li>
+      <li><a href="database.html">Database</a></li>
+      <li><a href="how-it-works.html">How it fits together</a></li>
+    </ul>
+  </nav>
+  <main>
+    <h2>Database ideas, in plain words</h2>
+    <table>
+      <tr><th>Idea</th><th>Plain meaning</th><th>Example here</th></tr>
+      <tr><td>Table</td><td>A list about one thing. Like a sheet in a notebook, with columns across the top and one row per item.</td><td><code>users</code> is a table. One row per person.</td></tr>
+      <tr><td>Row</td><td>One item in a table.</td><td>One row in <code>users</code> is one person: their name, email, password hash, role.</td></tr>
+      <tr><td>Column</td><td>One kind of fact about every item.</td><td><code>email</code> is a column in <code>users</code>. Every user has an email.</td></tr>
+      <tr><td>Primary key (PK)</td><td>The ID number that names one row and no other. It is unique, so the system can always find the exact row.</td><td><code>id</code> in <code>users</code>. User 1, user 2, user 3 — never two users with the same id.</td></tr>
+      <tr><td>Foreign key (FK)</td><td>A column that holds the ID of a row in another table. It is how tables link to each other.</td><td><code>tourist_id</code> in <code>requests</code> holds the id of a row in <code>users</code>. It says which tourist made this request.</td></tr>
+      <tr><td>Relationship</td><td>How two tables connect. "One to many" means one row in table A links to many rows in table B.</td><td>One provider has many requests. One tourist writes many reviews.</td></tr>
+      <tr><td>NOT NULL</td><td>This column must always have a value. It cannot be left empty.</td><td><code>email</code> in <code>users</code> is NOT NULL. Every account needs an email.</td></tr>
+      <tr><td>UNIQUE</td><td>No two rows can have the same value in this column.</td><td><code>email</code> is UNIQUE. Two people cannot register with the same email.</td></tr>
+    </table>
+
+    <h2>The 8 tables</h2>
+
+    <h3>1. users — every person who has an account</h3>
+    <p>One row per person: tourist, provider, or administrator. The <code>role</code> column says which one.</p>
+    <table>
+      <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
+      <tr><td><code>id</code></td><td>INTEGER</td><td>PK</td><td>Auto-increment, unique identifier</td></tr>
+      <tr><td><code>name</code></td><td>VARCHAR(100)</td><td></td><td>NOT NULL</td></tr>
+      <tr><td><code>email</code></td><td>VARCHAR(120)</td><td></td><td>NOT NULL, UNIQUE</td></tr>
+      <tr><td><code>password_hash</code></td><td>VARCHAR(255)</td><td></td><td>NOT NULL (hashed, never stored plain)</td></tr>
+      <tr><td><code>role</code></td><td>VARCHAR(20)</td><td></td><td>NOT NULL, DEFAULT 'tourist', must be tourist, provider, or admin</td></tr>
+      <tr><td><code>phone</code></td><td>VARCHAR(20)</td><td></td><td>Can be empty</td></tr>
+      <tr><td><code>active</code></td><td>BOOLEAN</td><td></td><td>NOT NULL, DEFAULT TRUE (admin sets it FALSE to suspend)</td></tr>
+      <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td></td><td>NOT NULL, set when the row is created</td></tr>
+    </table>
+
+    <h3>2. providers — the service profile of a local guide</h3>
+    <p>One row per provider. It links to <code>users</code> by <code>user_id</code>: the person behind the profile. <code>verified</code> is FALSE until the administrator approves the documents (FR-16).</p>
+    <table>
+      <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
+      <tr><td><code>id</code></td><td>INTEGER</td><td>PK</td><td>Auto-increment</td></tr>
+      <tr><td><code>user_id</code></td><td>INTEGER</td><td>FK &rarr; users(id)</td><td>NOT NULL, UNIQUE — one profile per person</td></tr>
+      <tr><td><code>business_name</code></td><td>VARCHAR(150)</td><td></td><td>NOT NULL</td></tr>
+      <tr><td><code>category</code></td><td>VARCHAR(60)</td><td></td><td>NOT NULL (for example Safari Guide, Water Sports)</td></tr>
+      <tr><td><code>location</code></td><td>VARCHAR(100)</td><td></td><td>NOT NULL</td></tr>
+      <tr><td><code>description</code></td><td>TEXT</td><td></td><td>NOT NULL</td></tr>
+      <tr><td><code>price_per_day</code></td><td>INTEGER</td><td></td><td>NOT NULL, must be 0 or more (Kenya Shillings)</td></tr>
+      <tr><td><code>phone</code></td><td>VARCHAR(20)</td><td></td><td>NOT NULL</td></tr>
+      <tr><td><code>verified</code></td><td>BOOLEAN</td><td></td><td>NOT NULL, DEFAULT FALSE — set by admin</td></tr>
+      <tr><td><code>average_rating</code></td><td>DECIMAL(2,1)</td><td></td><td>DEFAULT 0.0, kept up to date from reviews</td></tr>
+      <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td></td><td>NOT NULL</td></tr>
+    </table>
+
+    <h3>3. requests — a tourist asking a provider for a service</h3>
+    <p>One row per request. It links to the tourist (<code>tourist_id</code> &rarr; users) and to the provider (<code>provider_id</code> &rarr; providers). The <code>status</code> moves: pending &rarr; accepted or declined &rarr; completed or cancelled.</p>
+    <table>
+      <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
+      <tr><td><code>id</code></td><td>INTEGER</td><td>PK</td><td>Auto-increment</td></tr>
+      <tr><td><code>tourist_id</code></td><td>INTEGER</td><td>FK &rarr; users(id)</td><td>NOT NULL</td></tr>
+      <tr><td><code>provider_id</code></td><td>INTEGER</td><td>FK &rarr; providers(id)</td><td>NOT NULL</td></tr>
+      <tr><td><code>service_date</code></td><td>DATE</td><td></td><td>NOT NULL</td></tr>
+      <tr><td><code>guests</code></td><td>INTEGER</td><td></td><td>NOT NULL, must be 1 or more</td></tr>
+      <tr><td><code>notes</code></td><td>TEXT</td><td></td><td>Can be empty</td></tr>
+      <tr><td><code>status</code></td><td>VARCHAR(20)</td><td></td><td>NOT NULL, DEFAULT 'pending'</td></tr>
+      <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td></td><td>NOT NULL</td></tr>
+    </table>
+
+    <h3>4. payments — money for a request (M-Pesa)</h3>
+    <p>One row per payment. It links to the request (<code>request_id</code> &rarr; requests). The M-Pesa receipt is UNIQUE, so one receipt cannot pay twice. Note: payment is a future step — the built system does not take live payments yet.</p>
+    <table>
+      <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
+      <tr><td><code>id</code></td><td>INTEGER</td><td>PK</td><td>Auto-increment</td></tr>
+      <tr><td><code>request_id</code></td><td>INTEGER</td><td>FK &rarr; requests(id)</td><td>NOT NULL</td></tr>
+      <tr><td><code>amount</code></td><td>INTEGER</td><td></td><td>NOT NULL, must be more than 0 (Kenya Shillings)</td></tr>
+      <tr><td><code>phone</code></td><td>VARCHAR(20)</td><td></td><td>NOT NULL — the M-Pesa phone number</td></tr>
+      <tr><td><code>mpesa_receipt</code></td><td>VARCHAR(30)</td><td></td><td>UNIQUE, empty until confirmed</td></tr>
+      <tr><td><code>status</code></td><td>VARCHAR(20)</td><td></td><td>NOT NULL, DEFAULT 'pending'</td></tr>
+      <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td></td><td>NOT NULL</td></tr>
+    </table>
+
+    <h3>5. reviews — what a tourist thought of a provider</h3>
+    <p>One row per review. It links to the provider and the tourist. One tourist can review one provider only once (the pair is UNIQUE). The rating is 1 to 5.</p>
+    <table>
+      <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
+      <tr><td><code>id</code></td><td>INTEGER</td><td>PK</td><td>Auto-increment</td></tr>
+      <tr><td><code>provider_id</code></td><td>INTEGER</td><td>FK &rarr; providers(id)</td><td>NOT NULL</td></tr>
+      <tr><td><code>tourist_id</code></td><td>INTEGER</td><td>FK &rarr; users(id)</td><td>NOT NULL</td></tr>
+      <tr><td><code>rating</code></td><td>INTEGER</td><td></td><td>NOT NULL, must be 1–5</td></tr>
+      <tr><td><code>comment</code></td><td>TEXT</td><td></td><td>NOT NULL</td></tr>
+      <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td></td><td>NOT NULL</td></tr>
+      <tr><td>(tourist_id, provider_id)</td><td></td><td>UQ</td><td>UNIQUE pair — one review per tourist per provider</td></tr>
+    </table>
+
+    <h3>6. messages — chat between people</h3>
+    <p>One row per message. It links to the sender and the receiver (both in <code>users</code>), and to a request when the message is about one.</p>
+    <table>
+      <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
+      <tr><td><code>id</code></td><td>INTEGER</td><td>PK</td><td>Auto-increment</td></tr>
+      <tr><td><code>sender_id</code></td><td>INTEGER</td><td>FK &rarr; users(id)</td><td>NOT NULL</td></tr>
+      <tr><td><code>receiver_id</code></td><td>INTEGER</td><td>FK &rarr; users(id)</td><td>NOT NULL</td></tr>
+      <tr><td><code>request_id</code></td><td>INTEGER</td><td>FK &rarr; requests(id)</td><td>Can be empty</td></tr>
+      <tr><td><code>body</code></td><td>TEXT</td><td></td><td>NOT NULL — the message text</td></tr>
+      <tr><td><code>is_read</code></td><td>BOOLEAN</td><td></td><td>NOT NULL, DEFAULT FALSE</td></tr>
+      <tr><td><code>sent_at</code></td><td>TIMESTAMP</td><td></td><td>NOT NULL</td></tr>
+    </table>
+
+    <h3>7. favorites — providers a tourist saved</h3>
+    <p>One row per saved provider. The pair (user_id, provider_id) is the key, so a tourist cannot save the same provider twice.</p>
+    <table>
+      <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
+      <tr><td><code>user_id</code></td><td>INTEGER</td><td>PK, FK &rarr; users(id)</td><td>Part of the key</td></tr>
+      <tr><td><code>provider_id</code></td><td>INTEGER</td><td>PK, FK &rarr; providers(id)</td><td>Part of the key</td></tr>
+      <tr><td><code>saved_at</code></td><td>TIMESTAMP</td><td></td><td>NOT NULL</td></tr>
+    </table>
+
+    <h3>8. activity_log — a diary of what happened</h3>
+    <p>One row per action: who did it, what they did, which table it touched. The administrator reads this to see what happened on the site.</p>
+    <table>
+      <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
+      <tr><td><code>id</code></td><td>INTEGER</td><td>PK</td><td>Auto-increment</td></tr>
+      <tr><td><code>actor_id</code></td><td>INTEGER</td><td>FK &rarr; users(id)</td><td>Can be empty</td></tr>
+      <tr><td><code>action</code></td><td>VARCHAR(60)</td><td></td><td>NOT NULL (for example LOGIN, VERIFY_PROVIDER)</td></tr>
+      <tr><td><code>entity</code></td><td>VARCHAR(60)</td><td></td><td>NOT NULL — the table affected</td></tr>
+      <tr><td><code>entity_id</code></td><td>INTEGER</td><td></td><td>Can be empty</td></tr>
+      <tr><td><code>detail</code></td><td>TEXT</td><td></td><td>Can be empty</td></tr>
+      <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td></td><td>NOT NULL</td></tr>
+    </table>
+
+    <h2>How the tables connect</h2>
+    <p>Read it like a family tree. One user can be one provider. One provider has many requests and many reviews. One request has many messages and one payment. One tourist sends many requests and many reviews.</p>
+    <ul>
+      <li><code>users</code> &rarr; <code>providers</code>: one person, one profile.</li>
+      <li><code>users</code> &rarr; <code>requests</code>: one tourist, many requests.</li>
+      <li><code>providers</code> &rarr; <code>requests</code>: one provider, many requests.</li>
+      <li><code>requests</code> &rarr; <code>payments</code>: one request, one payment.</li>
+      <li><code>requests</code> &rarr; <code>messages</code>: one request, many messages.</li>
+      <li><code>providers</code> &rarr; <code>reviews</code>: one provider, many reviews.</li>
+      <li><code>users</code> &rarr; <code>favorites</code>: one tourist, many saved providers.</li>
+      <li><code>users</code> &rarr; <code>activity_log</code>: one person, many logged actions.</li>
+    </ul>
+    <p>The rule that keeps it safe: a review cannot be stored without its provider and tourist, a message cannot be stored without its sender and receiver, and a payment cannot be stored without its request. The foreign keys enforce that.</p>
+
+    <p>Source: Table 4.3, Database tables of the NativeGo platform, and the Database Schema document (8 tables, 3NF). The prototype uses SQLite; the production path is PostgreSQL.</p>
+  </main>
+  <aside>
+    <h2>Quick links</h2>
+    <ul>
+      <li><a href="index.html">Guide home</a></li>
+      <li><a href="requirements.html">All 19 requirements</a></li>
+      <li><a href="how-it-works.html">One full journey</a></li>
+      <li><a href="../index.html">Back to the main site</a></li>
+    </ul>
+  </aside>
+  <footer>
+    <p>NativeGo — a simple guide. Built from the project document, Chapters 1–4.</p>
+  </footer>
+</body>
+</html>
