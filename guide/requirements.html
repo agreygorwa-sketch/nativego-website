@@ -28,40 +28,8 @@
   <main>
     <div class="page-head">
       <h1>NativeGo — All 19 Requirements</h1>
-      <p>Every thing the system must do, in plain words. Each requirement has an ID (FR-01 to FR-19), what you give it, what it does, what you see, and which database table it uses.</p>
+      <p>Every thing the system must do. Each row shows what you give it, what the system does, and what you see after. The wording is the document's own: Table 4.1, Functional requirements of the NativeGo web platform.</p>
     </div>
-    <h2>How to read this page</h2>
-    <p>A requirement is one thing the system must do. "FR" means Functional Requirement — a function is a thing the system does. Each row shows: <strong>Input</strong> (what you type or click), <strong>Process</strong> (what the system does with it), <strong>Output</strong> (what you see after), and <strong>Table</strong> (where it is stored in the database).</p>
-    <p>The wording below is the document's own: Table 4.1, Functional requirements of the NativeGo web platform, in the project document (Chapters 1–4).</p>
-
-    <h2>Where each requirement lives on the website</h2>
-    <p>Every requirement below now has a page on the website. This is the trace — requirement to page.</p>
-    <table class="guide-table">
-      <tr><th>Requirement</th><th>Website page</th></tr>
-      <tr><td>FR-01 Tourist register</td><td><a href="../signup.html">Sign up</a></td></tr>
-      <tr><td>FR-02 Tourist log in / out</td><td><a href="../login.html">Log in</a></td></tr>
-      <tr><td>FR-03 Search verified providers</td><td><a href="../guides.html">Guides</a> (search form at the top)</td></tr>
-      <tr><td>FR-04 View provider profile</td><td><a href="../provider.html">Provider profile</a></td></tr>
-      <tr><td>FR-05 Send a service request</td><td><a href="../request.html">Request a Guide</a> (booking flow)</td></tr>
-      <tr><td>FR-06 Exchange messages</td><td><a href="../messages.html">Messages</a></td></tr>
-      <tr><td>FR-07 Submit a review</td><td><a href="../reviews.html">Reviews</a></td></tr>
-      <tr><td>FR-08 Report an account</td><td><a href="../report.html">Report a Problem</a></td></tr>
-      <tr><td>FR-09 Provider register</td><td><a href="../signup.html">Sign up</a> and <a href="../provider-dashboard.html">For providers</a></td></tr>
-      <tr><td>FR-10 Provider profile</td><td><a href="../provider-dashboard.html">For providers</a></td></tr>
-      <tr><td>FR-11 Upload verification documents</td><td><a href="../provider-dashboard.html">For providers</a></td></tr>
-      <tr><td>FR-12 Set availability</td><td><a href="../provider-dashboard.html">For providers</a></td></tr>
-      <tr><td>FR-13 Accept / decline requests</td><td><a href="../provider-dashboard.html">For providers</a></td></tr>
-      <tr><td>FR-14 View request history</td><td><a href="../provider-dashboard.html">For providers</a></td></tr>
-      <tr><td>FR-15 Administrator log in</td><td><a href="../login.html">Log in</a> and <a href="../admin.html">Admin</a></td></tr>
-      <tr><td>FR-16 Approve verifications</td><td><a href="../admin.html">Admin</a></td></tr>
-      <tr><td>FR-17 Manage accounts</td><td><a href="../admin.html">Admin</a></td></tr>
-      <tr><td>FR-18 Handle reports</td><td><a href="../admin.html">Admin</a></td></tr>
-      <tr><td>FR-19 View statistics</td><td><a href="../admin.html">Admin</a></td></tr>
-    </table>
-    <p>Pages that change the database (log in, request, message, review, report,
-      provider dashboard, admin) run on the live system at https://nativego-flask.vercel.app. This
-      static site is the front of the shop; the live system is the till. A page
-      that only shows information (guides, profiles, reviews) works on its own.</p>
 
     <h2>Tourist — FR-01 to FR-08</h2>
     <table class="guide-table">
@@ -97,14 +65,8 @@
       <tr><td>FR-19</td><td>Administrator: view system statistics</td><td>None → aggregate accounts, requests, reviews → statistics dashboard</td></tr>
     </table>
 
-    <h2>What "hash password" means (FR-01, FR-02)</h2>
-    <p>Hashing turns a password into a long jumble of letters and numbers that cannot be turned back into the password. The database stores the jumble, never the real password. When you log in, the system hashes what you typed and checks if the two jumbles match. That is why a stolen database does not give away passwords.</p>
-
-    <h2>What "session" means (FR-02, FR-15)</h2>
-    <p>A session is the system's short memory that you are logged in. After you log in, it gives your browser a session so you do not have to type your password on every page. Logging out clears it.</p>
-
     <h2>Non-functional requirements (Table 4.2)</h2>
-    <p>Functional requirements say what the system does. Non-functional requirements say how well it must do it, across all roles. The table below is the document's own: Table 4.2, Non-functional requirements of the NativeGo web platform.</p>
+    <p>Functional requirements say what the system does. Non-functional requirements say how well it must do it, across all roles.</p>
     <table class="guide-table">
       <tr><th>ID</th><th>Requirement and target</th><th>Why it matters to this system</th></tr>
       <tr><td>NFR-01</td><td>Performance: pages load in under 3 seconds on modest mobile connections</td><td>Tourists on mobile data abandon slow pages; speed decides adoption (Emam &amp; Abdelaal, 2021)</td></tr>
@@ -115,20 +77,9 @@
       <tr><td>NFR-06</td><td>Compatibility: runs in any modern browser; no download or installation</td><td>Removes the biggest adoption barrier for short-stay tourists (Jagatha et al., 2023)</td></tr>
       <tr><td>NFR-07</td><td>Maintainability: modular code (Flask blueprints per module); normalised schema</td><td>One module change without disturbing the rest (Bednarz &amp; Miłosz, 2025)(Hardini et al., 2025)</td></tr>
     </table>
-    <p>How this site honours them: it is plain HTML, CSS and JavaScript with no heavy libraries, so pages stay light and fast (NFR-01); the layout stacks into one column on a phone and works on any screen with no training (NFR-03); it runs in any modern browser with nothing to install (NFR-06); and location is only asked for where a feature needs it — the guide search — never anywhere else (NFR-04). Passwords, role checks and database queries live on the live system, not on these pages (NFR-02).</p>
 
-    <p>Source: Table 4.1, Functional requirements of the NativeGo web platform, and Table 4.2, Non-functional requirements of the NativeGo web platform, in the project document (Chapters 1–4).</p>
+    <p>Source: Table 4.1, Functional requirements, and Table 4.2, Non-functional requirements, in the project document (Chapters 1–4).</p>
   </main>
-
-  <aside>
-    <h2>Quick links</h2>
-    <ul>
-      <li><a href="index.html">Guide home</a></li>
-      <li><a href="database.html">The 8 database tables</a></li>
-      <li><a href="how-it-works.html">One full journey</a></li>
-      <li><a href="../index.html">Back to the main site</a></li>
-    </ul>
-  </aside>
 
   <footer class="site-footer">
     <div class="footer-grid">
