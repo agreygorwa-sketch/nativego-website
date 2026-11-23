@@ -139,7 +139,7 @@ document.querySelectorAll("form").forEach(function (form) {
     if (form.hasAttribute("data-go-to-provider")) {
       event.preventDefault();
       var provider = form.querySelector("#provider");
-      window.location.href = "http://localhost:5050/provider/" + provider.value;
+      window.location.href = "https://nativego-flask.vercel.app/provider/" + provider.value;
     }
     /* A form with no data-go-to (the contact form, the guide
        search) submits normally, exactly as before. */
