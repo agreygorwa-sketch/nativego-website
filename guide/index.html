@@ -7,25 +7,29 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-  <header>
-    <h1>NativeGo — A Simple Guide</h1>
-    <p>What the website does, what the database stores, and how it all fits together. Written in plain words.</p>
+  <header class="topbar" id="topbar">
+    <div class="wrap bar">
+      <a class="logo" href="../index.html">🌍 NativeGo</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="guide-nav">Menu</button>
+      <nav class="nav-links" id="guide-nav">
+        <ul>
+          <li><a class="nl" href="../index.html">NativeGo home</a></li>
+          <li><a class="nl" href="index.html">Guide home</a></li>
+          <li><a class="nl" href="requirements.html">Requirements</a></li>
+          <li><a class="nl" href="database.html">Database</a></li>
+          <li><a class="nl" href="how-it-works.html">How it fits together</a></li>
+          <li><a class="btn ghost sm" href="https://nativego-flask.vercel.app/login">Log in</a></li>
+          <li><a class="btn sm" href="https://nativego-flask.vercel.app/signup">Sign up</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <nav>
-    <!-- The Menu button: only shown on a phone. JavaScript opens and
-         closes the menu with it. -->
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="guide-nav">Menu</button>
-    <ul id="guide-nav">
-      <li><a href="../index.html">NativeGo home</a></li>
-      <li><a href="index.html">Guide home</a></li>
-      <li><a href="requirements.html">Requirements</a></li>
-      <li><a href="database.html">Database</a></li>
-      <li><a href="how-it-works.html">How it fits together</a></li>
-    </ul>
-  </nav>
-
   <main>
+    <div class="page-head">
+      <h1>NativeGo — A Simple Guide</h1>
+      <p>What the website does, what the database stores, and how it all fits together. Written in plain words.</p>
+    </div>
     <h2>What is NativeGo?</h2>
     <p>NativeGo is a website that connects tourists visiting Kenya with local people who offer services: safari guides, city tours, mountain guides, water sports, cultural experiences, fishing, and more.</p>
     <p>The problem it solves is simple. A tourist arrives in Kenya and does not know a trusted local guide. A local guide has the skill but no easy way to be found. NativeGo puts them together on one website.</p>
@@ -69,8 +73,38 @@
     </ul>
   </aside>
 
-  <footer>
-    <p>NativeGo — a simple guide. Built from the project document, Chapters 1–4.</p>
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a class="logo" href="../index.html">🌍 NativeGo</a>
+        <p>Connecting tourists with verified local providers across Kenya — guides, captains, instructors and hosts, booked directly.</p>
+        <p>Made in Kenya 🇰🇪</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="../guides.html">Discover providers</a>
+        <a href="../experiences.html">Destinations</a>
+        <a href="../how-it-works.html">FAQ</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../provider-dashboard.html">Become a provider</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../about.html">About us</a>
+        <a href="../how-it-works.html">How it works</a>
+        <a href="../report.html">Trust &amp; Safety</a>
+        <a href="../contact.html">Contact us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="https://nativego-flask.vercel.app/privacy">Privacy Policy</a>
+        <a href="https://nativego-flask.vercel.app/terms">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 NativeGo · All rights reserved</span>
+      <span><a href="https://nativego-flask.vercel.app/privacy">Privacy</a><a href="https://nativego-flask.vercel.app/terms">Terms</a></span>
+    </div>
   </footer>
 <!-- main.js: the site's JavaScript. One file, linked from every page. -->
   <script src="../js/main.js"></script>

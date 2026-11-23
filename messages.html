@@ -8,31 +8,29 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header>
-    <h1>NativeGo</h1>
-    <p>Travel Kenya with a verified local guide by your side.</p>
+  <header class="topbar" id="topbar">
+    <div class="wrap bar">
+      <a class="logo" href="index.html">🌍 NativeGo</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+      <nav class="nav-links" id="main-nav">
+        <ul>
+          <li><a class="nl" href="index.html">Home</a></li>
+          <li><a class="nl" href="about.html">About</a></li>
+          <li><a class="nl" href="guides.html">Guides</a></li>
+          <li><a class="nl" href="experiences.html">Experiences</a></li>
+          <li><a class="nl" href="how-it-works.html">How It Works</a></li>
+          <li><a class="nl" href="guide/index.html">Simple guide</a></li>
+          <li><a class="nl" href="request.html">Request a Guide</a></li>
+          <li><a class="nl" href="contact.html">Contact</a></li>
+          <li><a class="nl" href="reviews.html">Reviews</a></li>
+          <li><a class="nl" href="provider-dashboard.html">For providers</a></li>
+          <li><a class="nl" href="admin.html">Admin</a></li>
+          <li><a class="btn ghost sm" href="https://nativego-flask.vercel.app/login">Log in</a></li>
+          <li><a class="btn sm" href="https://nativego-flask.vercel.app/signup">Sign up</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
-
-  <nav>
-    <!-- The Menu button: only shown on a phone, where the 13 links do not
-         fit in one row. JavaScript opens and closes the menu with it. -->
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
-    <ul id="main-nav">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="guides.html">Guides</a></li>
-      <li><a href="experiences.html">Experiences</a></li>
-      <li><a href="how-it-works.html">How It Works</a></li>
-      <li><a href="guide/index.html">Simple guide</a></li>
-      <li><a href="request.html">Request a Guide</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="reviews.html">Reviews</a></li>
-      <li><a href="provider-dashboard.html">For providers</a></li>
-      <li><a href="admin.html">Admin</a></li>
-      <li><a href="login.html">Log in</a></li>
-      <li><a href="signup.html">Sign up</a></li>
-    </ul>
-  </nav>
 
   <main>
     <section>
@@ -98,8 +96,38 @@
       to share it.</p>
   </aside>
 
-  <footer>
-    <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a class="logo" href="index.html">🌍 NativeGo</a>
+        <p>Connecting tourists with verified local providers across Kenya — guides, captains, instructors and hosts, booked directly.</p>
+        <p>Made in Kenya 🇰🇪</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="guides.html">Discover providers</a>
+        <a href="experiences.html">Destinations</a>
+        <a href="how-it-works.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="provider-dashboard.html">Become a provider</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About us</a>
+        <a href="how-it-works.html">How it works</a>
+        <a href="report.html">Trust &amp; Safety</a>
+        <a href="contact.html">Contact us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="https://nativego-flask.vercel.app/privacy">Privacy Policy</a>
+        <a href="https://nativego-flask.vercel.app/terms">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 NativeGo · All rights reserved</span>
+      <span><a href="https://nativego-flask.vercel.app/privacy">Privacy</a><a href="https://nativego-flask.vercel.app/terms">Terms</a></span>
+    </div>
   </footer>
 <!-- main.js: the site's JavaScript. One file, linked from every page. -->
   <script src="js/main.js"></script>

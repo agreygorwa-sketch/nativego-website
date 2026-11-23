@@ -7,25 +7,29 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-  <header>
-    <h1>NativeGo — All 19 Requirements</h1>
-    <p>Every thing the system must do, in plain words. Each requirement has an ID (FR-01 to FR-19), what you give it, what it does, what you see, and which database table it uses.</p>
+  <header class="topbar" id="topbar">
+    <div class="wrap bar">
+      <a class="logo" href="../index.html">🌍 NativeGo</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="guide-nav">Menu</button>
+      <nav class="nav-links" id="guide-nav">
+        <ul>
+          <li><a class="nl" href="../index.html">NativeGo home</a></li>
+          <li><a class="nl" href="index.html">Guide home</a></li>
+          <li><a class="nl" href="requirements.html">Requirements</a></li>
+          <li><a class="nl" href="database.html">Database</a></li>
+          <li><a class="nl" href="how-it-works.html">How it fits together</a></li>
+          <li><a class="btn ghost sm" href="https://nativego-flask.vercel.app/login">Log in</a></li>
+          <li><a class="btn sm" href="https://nativego-flask.vercel.app/signup">Sign up</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-  <nav>
-    <!-- The Menu button: only shown on a phone. JavaScript opens and
-         closes the menu with it. -->
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="guide-nav">Menu</button>
-    <ul id="guide-nav">
-      <li><a href="../index.html">NativeGo home</a></li>
-      <li><a href="index.html">Guide home</a></li>
-      <li><a href="requirements.html">Requirements</a></li>
-      <li><a href="database.html">Database</a></li>
-      <li><a href="how-it-works.html">How it fits together</a></li>
-    </ul>
-  </nav>
-
   <main>
+    <div class="page-head">
+      <h1>NativeGo — All 19 Requirements</h1>
+      <p>Every thing the system must do, in plain words. Each requirement has an ID (FR-01 to FR-19), what you give it, what it does, what you see, and which database table it uses.</p>
+    </div>
     <h2>How to read this page</h2>
     <p>A requirement is one thing the system must do. "FR" means Functional Requirement — a function is a thing the system does. Each row shows: <strong>Input</strong> (what you type or click), <strong>Process</strong> (what the system does with it), <strong>Output</strong> (what you see after), and <strong>Table</strong> (where it is stored in the database).</p>
     <p>The wording below is the document's own: Table 4.1, Functional requirements of the NativeGo web platform, in the project document (Chapters 1–4).</p>
@@ -126,8 +130,38 @@
     </ul>
   </aside>
 
-  <footer>
-    <p>NativeGo — a simple guide. Built from the project document, Chapters 1–4.</p>
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <a class="logo" href="../index.html">🌍 NativeGo</a>
+        <p>Connecting tourists with verified local providers across Kenya — guides, captains, instructors and hosts, booked directly.</p>
+        <p>Made in Kenya 🇰🇪</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="../guides.html">Discover providers</a>
+        <a href="../experiences.html">Destinations</a>
+        <a href="../how-it-works.html">FAQ</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../provider-dashboard.html">Become a provider</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="../about.html">About us</a>
+        <a href="../how-it-works.html">How it works</a>
+        <a href="../report.html">Trust &amp; Safety</a>
+        <a href="../contact.html">Contact us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="https://nativego-flask.vercel.app/privacy">Privacy Policy</a>
+        <a href="https://nativego-flask.vercel.app/terms">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 NativeGo · All rights reserved</span>
+      <span><a href="https://nativego-flask.vercel.app/privacy">Privacy</a><a href="https://nativego-flask.vercel.app/terms">Terms</a></span>
+    </div>
   </footer>
 <!-- main.js: the site's JavaScript. One file, linked from every page. -->
   <script src="../js/main.js"></script>

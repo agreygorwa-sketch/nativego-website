@@ -150,6 +150,20 @@ document.querySelectorAll("form").forEach(function (form) {
   });
 });
 
+/* Job 5 — Topbar shadow on scroll. Once you scroll past the top, the
+   sticky topbar gains its border and shadow, like the Flask topbar. */
+(function () {
+  var bar = document.getElementById("topbar");
+  if (!bar) {
+    return;
+  }
+  function onScroll() {
+    bar.classList.toggle("scrolled", window.scrollY > 12);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+})();
+
 /* Job 4 — Live filter on the Guides page. As you type, the guide
    cards and the rows of the comparison table are hidden unless their
    text contains what you typed. With an empty box, everything shows.

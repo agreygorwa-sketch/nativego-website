@@ -1,8 +1,12 @@
 /* ============================================================
    NativeGo — one shared stylesheet for the whole site.
-   Colours: main blue #1D4ED8 · ground #FDE68A · ink #172554
-   · accent orange #EA580C.
-   Headings: Georgia, serif · Body: Arial, Helvetica, sans-serif.
+   Design system copied from the live Flask system
+   (nativego-flask-v2/static/style.css):
+   Colours: forest #14532d · forest-dk #0f3d22 · forest-2 #1d6b3f
+   · gold #c99512 · gold-lt #ffd166 · terra #e07a3f
+   · terra-dk #c96830 · cream #faf8f2 · ink #1a2e22
+   · muted #7c8478 · sage #e8f0e6 · card #ffffff · line #e7e0cd.
+   Fonts: system stack. No serif headings.
    The rules are grouped into labelled sections, in the order the
    page uses them, so you can find any rule fast.
    ============================================================ */
@@ -15,25 +19,68 @@
   box-sizing: border-box;
 }
 
-/* The whole page is a CSS Grid. The body is the grid container and its five
-   children (header, nav, main, aside, footer) are placed into NAMED areas.
-   grid-template-columns gives the main column all free space but never less
-   than 0 (minmax(0, 1fr)), and fixes the aside at 18rem. The minmax(0, ...)
-   part matters: a plain 1fr lets a wide table force the column wider than
-   the screen, which is what makes a page scroll sideways. */
+:root {
+  --forest: #14532d;
+  --forest-dk: #0f3d22;
+  --forest-2: #1d6b3f;
+  --forest-3: #2a7a45;
+  --gold: #c99512;
+  --gold-lt: #ffd166;
+  --terra: #e07a3f;
+  --terra-dk: #c96830;
+  --cream: #faf8f2;
+  --ink: #1a2e22;
+  --muted: #7c8478;
+  --sage: #e8f0e6;
+  --card: #ffffff;
+  --line: #e7e0cd;
+  --ok: #1d7a3a;
+  --ok-bg: #e6f4ea;
+  --err: #b3261e;
+  --err-bg: #fdecea;
+  --shadow: 0 2px 10px rgba(20, 83, 45, 0.08);
+  --shadow-lg: 0 10px 30px rgba(20, 83, 45, 0.14);
+  --radius: 16px;
+  --ease: cubic-bezier(0.22, 0.8, 0.32, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* The whole page is a CSS Grid. The body is the grid container and its
+   children (topbar header, main, aside, footer) are placed into NAMED
+   areas. grid-template-columns gives the main column all free space but
+   never less than 0 (minmax(0, 1fr)), and fixes the aside at 18rem. The
+   minmax(0, ...) part matters: a plain 1fr lets a wide table force the
+   column wider than the screen, which is what makes a page scroll
+   sideways. */
 body {
   margin: 0;
-  background-color: #FDE68A;
-  color: #172554;
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.6;
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 18rem;
   grid-template-areas:
     "header header"
-    "nav nav"
     "main aside"
     "footer footer";
+}
+
+a {
+  color: var(--forest-2);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-top: 0;
 }
 
 /* The sideways-scroll trap: no image or form control may ever grow wider
@@ -51,61 +98,108 @@ textarea {
   display: none !important;
 }
 
-/* Code words (table and column names) sit on a white chip so they
+/* Code words (table and column names) sit on a pale chip so they
    stand out from the sentence around them. */
 code {
-  background: #FFFFFF;
+  background: #f3ecd9;
   padding: 0.1rem 0.3rem;
+  border-radius: 4px;
 }
 
-/* --- 2. Header --- */
-header {
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.9em;
+}
+
+/* --- 2. Topbar (sticky header + nav) --- */
+/* One sticky bar at the top of every page: cream with a blur, the
+   logo on the left, the nav links in the middle, Log in / Sign up
+   as pill buttons on the right. Copied from the Flask topbar. */
+.topbar {
   grid-area: header;
-  background-color: #1D4ED8;
-  color: #FFFFFF;
-  padding: 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(250, 248, 242, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: box-shadow 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s;
 }
 
-header h1 {
-  margin: 0;
-  font-family: Georgia, serif;
+.topbar.scrolled {
+  background: rgba(250, 248, 242, 0.96);
+  border-color: var(--line);
+  box-shadow: 0 4px 18px rgba(20, 83, 45, 0.1);
+}
+
+.bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  gap: 12px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.logo {
+  color: var(--forest);
+  font-weight: 800;
+  font-size: 1.35em;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 /* --- 3. Navigation --- */
-/* The nav bar sits in its own grid row, in the dark ink colour. */
-nav {
-  grid-area: nav;
-  background-color: #172554;
-  padding: 0.5rem 1.5rem;
+/* The nav lives inside the topbar. On a wide screen its links sit in
+   one row as rounded pills; hovering a link gives it a sage
+   background. The Log in / Sign up links are pill buttons instead. */
+.topbar nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* Flexbox on the nav list: the links sit in one row, evenly spaced,
-   with no bullet points. flex-wrap lets them drop onto a new line on
-   a medium screen instead of squeezing or overflowing. */
-nav ul {
+.topbar nav ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  align-items: center;
+  gap: 6px;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-nav a {
-  color: #FFFFFF;
+.topbar nav a.nl {
+  color: var(--ink);
   text-decoration: none;
-  font-weight: bold;
+  font-size: 0.94em;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 999px;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
 }
 
-nav a:hover {
-  color: #EA580C;
+.topbar nav a.nl:hover {
+  background: var(--sage);
+  color: var(--forest);
 }
 
-/* The link to the page you are on: orange, with an underline, so you
+/* The link to the page you are on: forest green on sage, so you
    always know where you are. JavaScript adds this class. */
-nav a.active {
-  color: #EA580C;
-  border-bottom: 2px solid #EA580C;
+.topbar nav a.nl.active {
+  background: var(--sage);
+  color: var(--forest);
+  font-weight: 700;
 }
 
 /* The Menu button. Hidden on a wide screen, where the full menu fits.
@@ -114,33 +208,63 @@ nav a.active {
 .nav-toggle {
   display: none;
   margin: 0;
+  cursor: pointer;
+  font-size: 1.5em;
+  color: var(--forest);
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #fff;
+  line-height: 1;
 }
 
 /* --- 4. Layout: main and aside --- */
 main {
   grid-area: main;
   padding: 1.5rem;
+  min-width: 0;
 }
 
 /* The side column: useful info on every page, never left empty. */
 aside {
   grid-area: aside;
-  background-color: #FFFFFF;
-  border-left: 4px solid #EA580C;
+  background-color: var(--card);
+  border-left: 1px solid var(--line);
+  border-top: 4px solid var(--terra);
+  border-radius: 0 0 0 var(--radius);
   padding: 1.5rem;
+  box-shadow: var(--shadow);
+  margin: 1.5rem 1.5rem 1.5rem 0;
+  align-self: start;
+}
+
+aside h2 {
+  color: var(--forest);
+}
+
+/* A page heading block (used on the guide pages, whose h1 is the page
+   title): centred, like the Flask page-head. */
+.page-head {
+  padding: 2rem 0 0.5rem;
+  text-align: center;
+}
+
+.page-head h1 {
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  margin-bottom: 8px;
+  color: var(--forest);
+}
+
+.page-head p {
+  color: var(--muted);
+  max-width: 38em;
+  margin: 0 auto;
 }
 
 /* --- 5. Headings and text --- */
 h2,
 h3 {
-  font-family: Georgia, serif;
-  color: #1D4ED8;
-}
-
-/* Headings inside the dark header and footer stay readable on dark colours. */
-header h2,
-footer p {
-  color: #FFFFFF;
+  color: var(--forest);
 }
 
 /* --- 6. Cards --- */
@@ -154,13 +278,24 @@ footer p {
 }
 
 /* One card: it can grow and shrink, but never gets narrower than 16rem,
-   so cards wrap into a new row rather than becoming unreadably thin. */
+   so cards wrap into a new row rather than becoming unreadably thin.
+   White, 16px radius, soft green-tinted shadow — the Flask card. */
 .card {
   flex: 1 1 16rem;
-  background-color: #FFFFFF;
-  border: 1px solid #1D4ED8;
-  border-radius: 8px;
-  padding: 1rem;
+  background-color: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem;
+  transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card h3 {
+  margin: 10px 0 4px;
 }
 
 /* A photo in a card. Real photos live in the images/ folder, and
@@ -175,27 +310,108 @@ footer p {
 }
 
 /* --- 7. Buttons --- */
-/* A call-to-action button: a link styled to look like a button. */
+/* A call-to-action button: a link styled to look like a button.
+   Pill-shaped, terracotta, with a soft shadow and a lift on hover —
+   the Flask button. */
 .button {
   display: inline-block;
-  background-color: #EA580C;
-  color: #FFFFFF;
+  background-color: var(--terra);
+  color: #fff;
   text-decoration: none;
-  font-weight: bold;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  font-weight: 650;
+  padding: 11px 26px;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(224, 122, 63, 0.35);
+  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), background 0.18s;
 }
 
-/* The submit button uses the orange accent colour. */
+.button:hover {
+  background-color: var(--terra-dk);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(224, 122, 63, 0.4);
+  color: #fff;
+}
+
+/* The submit button uses the same terracotta pill. */
 button {
-  background-color: #EA580C;
-  color: #FFFFFF;
-  font-weight: bold;
+  background-color: var(--terra);
+  color: #fff;
+  font-weight: 650;
   border: none;
-  border-radius: 8px;
-  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  padding: 11px 26px;
   margin-top: 1rem;
   cursor: pointer;
+  box-shadow: 0 4px 14px rgba(224, 122, 63, 0.35);
+  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), background 0.18s;
+  font-size: 1em;
+}
+
+button:hover {
+  background-color: var(--terra-dk);
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* The Menu button is the exception: it is a small white square, not
+   a terracotta pill (see section 3). */
+button.nav-toggle {
+  background: #fff;
+  color: var(--forest);
+  box-shadow: none;
+  padding: 6px 10px;
+  margin-top: 0;
+}
+
+button.nav-toggle:hover {
+  background: var(--sage);
+  transform: none;
+}
+
+/* Small pill buttons, used for Log in / Sign up in the topbar. */
+.btn {
+  background: var(--terra);
+  color: #fff;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 0.86em;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 650;
+  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease), background 0.18s;
+  box-shadow: 0 4px 14px rgba(224, 122, 63, 0.35);
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: var(--terra-dk);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(224, 122, 63, 0.4);
+  color: #fff;
+}
+
+.btn.ghost {
+  background: transparent;
+  color: var(--forest);
+  border: 1.5px solid var(--line);
+  box-shadow: none;
+}
+
+.btn.ghost:hover {
+  background: var(--sage);
+  border-color: var(--forest);
+  color: var(--forest);
+  box-shadow: none;
+}
+
+.btn.sm {
+  padding: 7px 16px;
+  font-size: 0.86em;
 }
 
 /* --- 8. Tables --- */
@@ -203,40 +419,60 @@ button {
    column, only the wrapper scrolls sideways — the page itself never does. */
 .table-scroll {
   overflow-x: auto;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin: 14px 0;
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
-  background-color: #FFFFFF;
+  background-color: var(--card);
+  font-size: 0.92em;
 }
 
 th,
 td {
-  border: 1px solid #1D4ED8;
-  padding: 0.5rem;
+  border-bottom: 1px solid #f0ebdd;
+  padding: 11px 14px;
   text-align: left;
 }
 
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr {
+  transition: background 0.15s;
+}
+
+tbody tr:hover {
+  background: #f6f3e9;
+}
+
 thead th {
-  background-color: #1D4ED8;
-  color: #FFFFFF;
+  background-color: var(--forest);
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 tfoot td {
   font-weight: bold;
-  background-color: #FDE68A;
+  background-color: var(--sage);
 }
 
 /* Guide tables: the plain guide pages use tables whose first row is the
-   header, so every header cell is blue, and the cells line up at the top. */
+   header, so every header cell is forest green, and the cells line up
+   at the top. */
 .guide-table {
   margin: 1rem 0;
 }
 
 .guide-table th {
-  background-color: #1D4ED8;
-  color: #FFFFFF;
+  background-color: var(--forest);
+  color: #fff;
 }
 
 .guide-table th,
@@ -248,7 +484,8 @@ tfoot td {
 /* Form labels sit on their own line above each control. */
 label {
   display: block;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 0.94em;
   margin-top: 1rem;
 }
 
@@ -256,10 +493,23 @@ input,
 select,
 textarea {
   width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #1D4ED8;
-  border-radius: 4px;
-  font-family: Arial, Helvetica, sans-serif;
+  padding: 11px 14px;
+  margin-top: 5px;
+  border: 1px solid #cfc8b2;
+  border-radius: 10px;
+  font-size: 1em;
+  font-family: inherit;
+  background: #fff;
+  color: var(--ink);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 149, 18, 0.18);
 }
 
 /* A checkbox or radio button inside its label stays small and sits
@@ -272,26 +522,27 @@ input[type="radio"] {
 /* A group of related fields, with a caption. Used for the provider
    fields on the sign-up form. */
 fieldset {
-  border: 1px solid #1D4ED8;
-  border-radius: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
   margin-top: 1rem;
   padding: 1rem;
 }
 
 legend {
   font-weight: bold;
-  color: #1D4ED8;
+  color: var(--forest);
 }
 
 /* A short note under a form, in smaller text. */
 .form-note {
   font-size: 0.9rem;
+  color: var(--muted);
 }
 
 /* The message JavaScript puts under a field that failed validation.
    Red and bold, so it is easy to spot. */
 .field-error {
-  color: #B91C1C;
+  color: var(--err);
   font-weight: bold;
   margin: 0.25rem 0 0;
 }
@@ -301,38 +552,100 @@ legend {
 input[aria-invalid="true"],
 select[aria-invalid="true"],
 textarea[aria-invalid="true"] {
-  border-color: #B91C1C;
+  border-color: var(--err);
 }
 
 /* --- 10. Footer --- */
-footer {
+/* Multi-column footer, copied from the Flask site-footer: dark forest
+   green, brand column first, then Explore, Company and Legal. */
+.site-footer {
   grid-area: footer;
-  background-color: #172554;
-  color: #FFFFFF;
-  text-align: center;
-  padding: 1rem;
+  background: var(--forest-dk);
+  color: #b9b3a3;
+  margin-top: 80px;
 }
 
-/* --- 11. Responsive: phones (700px and below) --- */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 32px;
+  padding: 56px 20px 36px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.footer-col h4 {
+  color: #fff;
+  font-size: 0.95em;
+  margin: 0 0 14px;
+  letter-spacing: 0.02em;
+}
+
+.footer-col a {
+  display: block;
+  color: #b9b3a3;
+  text-decoration: none;
+  font-size: 0.9em;
+  padding: 5px 0;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.footer-col a:hover {
+  color: var(--gold-lt);
+  transform: translateX(3px);
+}
+
+.footer-brand .logo {
+  color: var(--gold-lt);
+  font-size: 1.4em;
+}
+
+.footer-brand p {
+  font-size: 0.9em;
+  margin: 12px 0;
+  max-width: 22em;
+  color: #b9b3a3;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 18px 20px;
+  text-align: center;
+  font-size: 0.83em;
+  color: #8f8a76;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.footer-bottom a {
+  color: #8f8a76;
+  text-decoration: none;
+  margin-left: 14px;
+}
+
+.footer-bottom a:hover {
+  color: var(--gold-lt);
+}
+
+/* --- 11. Responsive: phones (760px and below) --- */
 /* THE MEDIA QUERY — this must stay LAST in the file. A media query only
    applies when its condition is true, so putting it last means its rules
-   win over the rules above on small screens. At 700px wide or less, the
-   grid becomes ONE column: header, nav, main, aside and footer stack
-   top to bottom, and the nav links stack vertically too. That is what
-   stops the page scrolling sideways on a phone. */
-@media (max-width: 700px) {
+   win over the rules above on small screens. At 760px wide or less, the
+   grid becomes ONE column: topbar, main, aside and footer stack top to
+   bottom, and the nav links become a dropdown under the topbar. That is
+   what stops the page scrolling sideways on a phone. */
+@media (max-width: 760px) {
   body {
     grid-template-columns: 1fr;
     grid-template-areas:
       "header"
-      "nav"
       "main"
       "aside"
       "footer";
-  }
-
-  nav ul {
-    flex-direction: column;
   }
 
   /* The Menu button appears on a phone. */
@@ -340,19 +653,70 @@ footer {
     display: inline-block;
   }
 
+  /* The nav drops down under the topbar, full width, cream with a blur. */
+  .topbar nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(250, 248, 242, 0.98);
+    backdrop-filter: blur(14px);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 20px 18px;
+    gap: 2px;
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 14px 26px rgba(20, 83, 45, 0.12);
+  }
+
+  .topbar nav ul {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
+
+  .topbar nav a.nl {
+    padding: 11px 8px;
+    display: block;
+  }
+
+  .topbar nav .btn {
+    text-align: center;
+    margin-top: 6px;
+  }
+
   /* With JavaScript running, the menu starts hidden on a phone and the
-     Menu button opens it. Without JavaScript the list stays visible,
+     Menu button opens it. Without JavaScript the nav stays visible,
      so the menu still works. */
-  html.js nav ul {
+  html.js .topbar nav {
     display: none;
   }
 
-  html.js nav.open ul {
+  html.js .topbar nav.open {
     display: flex;
   }
 
   aside {
     border-left: none;
-    border-top: 4px solid #EA580C;
+    border-top: 4px solid var(--terra);
+    margin: 0 1.5rem 1.5rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------- reduced motion ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *:before,
+  *:after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }
