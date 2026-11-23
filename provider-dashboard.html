@@ -14,7 +14,10 @@
   </header>
 
   <nav>
-    <ul>
+    <!-- The Menu button: only shown on a phone, where the 13 links do not
+         fit in one row. JavaScript opens and closes the menu with it. -->
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <ul id="main-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="guides.html">Guides</a></li>
@@ -114,5 +117,7 @@
   <footer>
     <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
   </footer>
+<!-- main.js: the site's JavaScript. One file, linked from every page. -->
+  <script src="js/main.js"></script>
 </body>
 </html>

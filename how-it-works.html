@@ -3,23 +3,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- viewport: phones use their real width, so the one-column layout in the
-       media query takes over at 700px and below. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How It Works — NativeGo</title>
-  <!-- The one shared stylesheet, linked from every page. -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- header: same banner as every page. -->
   <header>
     <h1>NativeGo</h1>
     <p>Travel Kenya with a verified local guide by your side.</p>
   </header>
 
-  <!-- nav: same menu as every page, one Flexbox row with no bullets. -->
   <nav>
-    <ul>
+    <!-- The Menu button: only shown on a phone, where the 13 links do not
+         fit in one row. JavaScript opens and closes the menu with it. -->
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <ul id="main-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="guides.html">Guides</a></li>
@@ -36,14 +34,11 @@
     </ul>
   </nav>
 
-  <!-- main: this page's own content. -->
   <main>
     <section>
       <h2>The booking journey</h2>
       <p>Booking a guide on NativeGo takes five steps, and you are never locked in
         before you have seen your guide's profile and price.</p>
-      <!-- An ordered list is the right tag here: the steps have a real order,
-           and the numbers are part of the meaning. -->
       <ol>
         <li><strong>Send a request.</strong> Fill in the request form with your destination,
           travel date and group size.</li>
@@ -59,9 +54,6 @@
       <p><a class="button" href="request.html">Start Your Request</a></p>
     </section>
 
-    <!-- Safety and trust section, as three cards that wrap on narrow screens.
-         Each card states its point once — the detail of how guides are
-         verified lives on the About page, not here. -->
     <section>
       <h2>Safety and trust</h2>
       <div class="cards">
@@ -87,7 +79,6 @@
     </section>
   </main>
 
-  <!-- aside: the safety helpline, so the side column is useful. -->
   <aside>
     <h2>Safety helpline</h2>
     <p>+254 712 345 678<br>
@@ -96,9 +87,10 @@
       reach you fast.</p>
   </aside>
 
-  <!-- footer: same on every page. -->
   <footer>
     <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
   </footer>
+<!-- main.js: the site's JavaScript. One file, linked from every page. -->
+  <script src="js/main.js"></script>
 </body>
 </html>

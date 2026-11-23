@@ -3,23 +3,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- viewport: phones use their real width, so the one-column layout in the
-       media query takes over at 700px and below. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact NativeGo</title>
-  <!-- The one shared stylesheet, linked from every page. -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- header: same banner as every page. -->
   <header>
     <h1>NativeGo</h1>
     <p>Travel Kenya with a verified local guide by your side.</p>
   </header>
 
-  <!-- nav: same menu as every page, one Flexbox row with no bullets. -->
   <nav>
-    <ul>
+    <!-- The Menu button: only shown on a phone, where the 13 links do not
+         fit in one row. JavaScript opens and closes the menu with it. -->
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <ul id="main-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="guides.html">Guides</a></li>
@@ -36,7 +34,6 @@
     </ul>
   </nav>
 
-  <!-- main: this page's own content. -->
   <main>
     <section>
       <h2>Contact us</h2>
@@ -47,18 +44,12 @@
         <strong>Location:</strong> Nairobi, Kenya</p>
     </section>
 
-    <!-- Simple contact form. Same no-backend note as the request form:
-         action="#" and method="get" mean it does not really send anywhere yet. -->
     <section>
       <h2>Send a message</h2>
-      <form action="#" method="get">
-        <!-- label's for matches the control's id, so clicking the label focuses
-             the right box and screen readers can pair them up. -->
+      <form id="contact-form" action="#" method="get">
         <label for="name">Your name *</label>
         <input type="text" id="name" name="name" required>
 
-        <!-- type="email" makes the browser check for an @ sign and a domain
-             before the form can be sent. -->
         <label for="contactemail">Your email *</label>
         <input type="email" id="contactemail" name="contactemail" required>
 
@@ -70,7 +61,6 @@
     </section>
   </main>
 
-  <!-- aside: opening hours live here, as required for this page. -->
   <aside>
     <h2>Opening hours</h2>
     <p>Monday to Friday: 8:00am – 5:00pm<br>
@@ -80,9 +70,10 @@
       and helpline only.</p>
   </aside>
 
-  <!-- footer: same on every page. -->
   <footer>
     <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
   </footer>
+<!-- main.js: the site's JavaScript. One file, linked from every page. -->
+  <script src="js/main.js"></script>
 </body>
 </html>

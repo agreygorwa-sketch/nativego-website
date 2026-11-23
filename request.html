@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- request.html — the booking flow (FR-05, wireframe 4.9). -->
+<!-- request.html — the booking flow (FR-05, wireframe 4.9). A short booking flow: the request moves pending → accepted or declined → completed → reviewed. -->
 <html lang="en-GB">
 <head>
   <meta charset="UTF-8">
@@ -14,7 +14,10 @@
   </header>
 
   <nav>
-    <ul>
+    <!-- The Menu button: only shown on a phone, where the 13 links do not
+         fit in one row. JavaScript opens and closes the menu with it. -->
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <ul id="main-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="guides.html">Guides</a></li>
@@ -55,10 +58,53 @@
           You can see all your requests under <a href="http://localhost:5050/my-requests">My requests</a>
           on the live system.</li>
       </ol>
+      <p>The request moves through states: pending → accepted or declined →
+        completed → reviewed. Every step is checked on the live system, so a
+        request cannot skip from pending straight to reviewed.</p>
       <p>Why the request is sent on the live system: sending a request changes
         the database (it creates a row in the <code>requests</code> table), and
         only a logged-in tourist may do that. This page is the front of the
         shop; the live system is the till.</p>
+    </section>
+
+    <section>
+      <h2>Send a request</h2>
+      <p>This is what a request asks for: the service, a description, the
+        meeting point, and the time. Fill it in to see the fields, then continue
+        to the provider's live profile, where the real request is sent.</p>
+      <p class="form-note">Nothing you type here is saved. This page shows the
+        form; the live system at localhost:5050 is where the request is created.</p>
+      <form id="request-form" action="#" method="get" data-go-to-provider>
+        <label for="provider">Provider and service *</label>
+        <select id="provider" name="provider" required>
+          <option value="">Choose a provider</option>
+          <option value="1">Mara Savannah Safaris — Safari Guide</option>
+          <option value="2">Lamu Dhow Adventures — Water Sports</option>
+          <option value="3">Mt Kenya Treks — Mountain Guide</option>
+          <option value="4">Nairobi by Foot — City Tour</option>
+          <option value="6">Maasai Culture Experience — Cultural Experience</option>
+          <option value="8">Amboseli Photo Walks — Photography</option>
+        </select>
+
+        <label for="service-date">Service date *</label>
+        <input type="date" id="service-date" name="service-date" required>
+
+        <label for="meeting-time">Meeting time *</label>
+        <input type="time" id="meeting-time" name="meeting-time" required>
+
+        <label for="guests">Number of guests *</label>
+        <input type="number" id="guests" name="guests" min="1" required>
+
+        <label for="meeting-point">Meeting point *</label>
+        <input type="text" id="meeting-point" name="meeting-point" required>
+
+        <label for="notes">Notes and description</label>
+        <textarea id="notes" name="notes" rows="4"></textarea>
+
+        <button type="submit">Continue to the provider's live profile</button>
+      </form>
+      <p>Prefer to go straight there? Open a provider below and use the request
+        form on their live profile.</p>
     </section>
 
     <section>
@@ -128,8 +174,9 @@
 
     <section>
       <h2>What a request contains</h2>
-      <p>When you send a request, the system stores: the service date, the number
-        of guests, your notes, and the status (pending at first). The guide sees
+      <p>When you send a request, the system stores: the service type, a
+        description, the meeting point, the time, the service date, and the
+        number of guests — and the status (pending at first). The guide sees
         it on their dashboard and accepts or declines. Your request history is
         kept, so you can look back at past trips.</p>
       <p>No payment is taken when you send a request. Payment happens later,
@@ -150,5 +197,7 @@
   <footer>
     <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
   </footer>
+<!-- main.js: the site's JavaScript. One file, linked from every page. -->
+  <script src="js/main.js"></script>
 </body>
 </html>

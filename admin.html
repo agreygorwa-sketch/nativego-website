@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- admin.html — the administrator dashboard (FR-15 to FR-19, wireframe 4.12). -->
+<!-- admin.html — the administrator dashboard (FR-15 to FR-19, wireframe 4.12). Centred on the verification queue, reported cases, and system statistics. -->
 <html lang="en-GB">
 <head>
   <meta charset="UTF-8">
@@ -14,7 +14,10 @@
   </header>
 
   <nav>
-    <ul>
+    <!-- The Menu button: only shown on a phone, where the 13 links do not
+         fit in one row. JavaScript opens and closes the menu with it. -->
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <ul id="main-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="guides.html">Guides</a></li>
@@ -37,6 +40,37 @@
       <p>The administrator runs the site. Only an admin account can open the
         admin pages. The admin keeps the marketplace safe: checking providers,
         managing accounts, handling reports, and watching the numbers.</p>
+    </section>
+
+    <section>
+      <h2>Verification queue</h2>
+      <p>Providers waiting to be checked sit in the verification queue. The
+        administrator opens each one, looks at the identity documents and
+        certificates, and approves or rejects them, with a reason. Approved
+        providers become visible to tourists; rejected ones get a reason and
+        stay hidden. This is the trust gate, and it is the first thing on the
+        dashboard.</p>
+      <p>See the queue on the live system:
+        <a href="http://localhost:5050/admin/verifications">Verification queue</a>.</p>
+    </section>
+
+    <section>
+      <h2>Reported cases</h2>
+      <p>Reports from tourists arrive as cases. The administrator reads each
+        report, looks at the messages and the request behind it, and decides:
+        warn the provider, suspend the account, or close the case with no
+        action. Both sides are told the outcome.</p>
+      <p>See the cases on the live system:
+        <a href="http://localhost:5050/admin/reports">Reported cases</a>.</p>
+    </section>
+
+    <section>
+      <h2>System statistics</h2>
+      <p>The dashboard counts the whole marketplace: how many accounts, how
+        many requests, how many reviews, and what has happened recently. The
+        numbers come from the database, so they are always up to date.</p>
+      <p>See the numbers on the live system:
+        <a href="http://localhost:5050/admin">Statistics dashboard</a>.</p>
     </section>
 
     <section>
@@ -106,5 +140,7 @@
   <footer>
     <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
   </footer>
+<!-- main.js: the site's JavaScript. One file, linked from every page. -->
+  <script src="js/main.js"></script>
 </body>
 </html>

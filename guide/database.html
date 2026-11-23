@@ -5,20 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NativeGo — The Database</title>
   <link rel="stylesheet" href="../css/style.css">
-  <style>
-    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
-    th, td { border: 1px solid #172554; padding: 0.5rem; text-align: left; vertical-align: top; }
-    th { background-color: #1D4ED8; color: #FFFFFF; }
-    code { background: #FFFFFF; padding: 0.1rem 0.3rem; }
-  </style>
 </head>
 <body>
   <header>
     <h1>NativeGo — The Database</h1>
     <p>The database is the memory of the website. It is named <code>nativego_db</code>. It has 8 tables. This page explains each one in plain words.</p>
   </header>
+
   <nav>
-    <ul>
+    <!-- The Menu button: only shown on a phone. JavaScript opens and
+         closes the menu with it. -->
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="guide-nav">Menu</button>
+    <ul id="guide-nav">
       <li><a href="../index.html">NativeGo home</a></li>
       <li><a href="index.html">Guide home</a></li>
       <li><a href="requirements.html">Requirements</a></li>
@@ -26,9 +24,10 @@
       <li><a href="how-it-works.html">How it fits together</a></li>
     </ul>
   </nav>
+
   <main>
     <h2>Database ideas, in plain words</h2>
-    <table>
+    <table class="guide-table">
       <tr><th>Idea</th><th>Plain meaning</th><th>Example here</th></tr>
       <tr><td>Table</td><td>A list about one thing. Like a sheet in a notebook, with columns across the top and one row per item.</td><td><code>users</code> is a table. One row per person.</td></tr>
       <tr><td>Row</td><td>One item in a table.</td><td>One row in <code>users</code> is one person: their name, email, password hash, role.</td></tr>
@@ -41,10 +40,12 @@
     </table>
 
     <h2>The 8 tables</h2>
+    <p>The database that supports the platform is named <code>nativego_db</code>. It was implemented in SQLite for the prototype, with PostgreSQL as the production path, and the schema is organised so no information is stored twice. The eight tables below carry the system's data.</p>
+    <p>Foreign keys enforce the business rules at the data level: a review cannot be stored without its provider and tourist, a message cannot be stored without its sender and receiver, and a payment cannot be stored without its request.</p>
 
     <h3>1. users — every person who has an account</h3>
     <p>One row per person: tourist, provider, or administrator. The <code>role</code> column says which one.</p>
-    <table>
+    <table class="guide-table">
       <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
       <tr><td><code>id</code></td><td>INTEGER</td><td>PK</td><td>Auto-increment, unique identifier</td></tr>
       <tr><td><code>name</code></td><td>VARCHAR(100)</td><td></td><td>NOT NULL</td></tr>
@@ -58,10 +59,10 @@
 
     <h3>2. providers — the service profile of a local guide</h3>
     <p>One row per provider. It links to <code>users</code> by <code>user_id</code>: the person behind the profile. <code>verified</code> is FALSE until the administrator approves the documents (FR-16).</p>
-    <table>
+    <table class="guide-table">
       <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
       <tr><td><code>id</code></td><td>INTEGER</td><td>PK</td><td>Auto-increment</td></tr>
-      <tr><td><code>user_id</code></td><td>INTEGER</td><td>FK &rarr; users(id)</td><td>NOT NULL, UNIQUE — one profile per person</td></tr>
+      <tr><td><code>user_id</code></td><td>INTEGER</td><td>FK → users(id)</td><td>NOT NULL, UNIQUE — one profile per person</td></tr>
       <tr><td><code>business_name</code></td><td>VARCHAR(150)</td><td></td><td>NOT NULL</td></tr>
       <tr><td><code>category</code></td><td>VARCHAR(60)</td><td></td><td>NOT NULL (for example Safari Guide, Water Sports)</td></tr>
       <tr><td><code>location</code></td><td>VARCHAR(100)</td><td></td><td>NOT NULL</td></tr>
@@ -74,12 +75,12 @@
     </table>
 
     <h3>3. requests — a tourist asking a provider for a service</h3>
-    <p>One row per request. It links to the tourist (<code>tourist_id</code> &rarr; users) and to the provider (<code>provider_id</code> &rarr; providers). The <code>status</code> moves: pending &rarr; accepted or declined &rarr; completed or cancelled.</p>
-    <table>
+    <p>One row per request. It links to the tourist (<code>tourist_id</code> → users) and to the provider (<code>provider_id</code> → providers). The <code>status</code> moves: pending → accepted or declined → completed or cancelled.</p>
+    <table class="guide-table">
       <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
       <tr><td><code>id</code></td><td>INTEGER</td><td>PK</td><td>Auto-increment</td></tr>
-      <tr><td><code>tourist_id</code></td><td>INTEGER</td><td>FK &rarr; users(id)</td><td>NOT NULL</td></tr>
-      <tr><td><code>provider_id</code></td><td>INTEGER</td><td>FK &rarr; providers(id)</td><td>NOT NULL</td></tr>
+      <tr><td><code>tourist_id</code></td><td>INTEGER</td><td>FK → users(id)</td><td>NOT NULL</td></tr>
+      <tr><td><code>provider_id</code></td><td>INTEGER</td><td>FK → providers(id)</td><td>NOT NULL</td></tr>
       <tr><td><code>service_date</code></td><td>DATE</td><td></td><td>NOT NULL</td></tr>
       <tr><td><code>guests</code></td><td>INTEGER</td><td></td><td>NOT NULL, must be 1 or more</td></tr>
       <tr><td><code>notes</code></td><td>TEXT</td><td></td><td>Can be empty</td></tr>
@@ -88,11 +89,11 @@
     </table>
 
     <h3>4. payments — money for a request (M-Pesa)</h3>
-    <p>One row per payment. It links to the request (<code>request_id</code> &rarr; requests). The M-Pesa receipt is UNIQUE, so one receipt cannot pay twice. Note: payment is a future step — the built system does not take live payments yet.</p>
-    <table>
+    <p>One row per payment. It links to the request (<code>request_id</code> → requests). The M-Pesa receipt is UNIQUE, so one receipt cannot pay twice. Note: payment is a design seam, not in the prototype — the <code>payments</code> table is ready, but no real money moves yet. The built system does not take live payments, and this site has no payment form.</p>
+    <table class="guide-table">
       <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
       <tr><td><code>id</code></td><td>INTEGER</td><td>PK</td><td>Auto-increment</td></tr>
-      <tr><td><code>request_id</code></td><td>INTEGER</td><td>FK &rarr; requests(id)</td><td>NOT NULL</td></tr>
+      <tr><td><code>request_id</code></td><td>INTEGER</td><td>FK → requests(id)</td><td>NOT NULL</td></tr>
       <tr><td><code>amount</code></td><td>INTEGER</td><td></td><td>NOT NULL, must be more than 0 (Kenya Shillings)</td></tr>
       <tr><td><code>phone</code></td><td>VARCHAR(20)</td><td></td><td>NOT NULL — the M-Pesa phone number</td></tr>
       <tr><td><code>mpesa_receipt</code></td><td>VARCHAR(30)</td><td></td><td>UNIQUE, empty until confirmed</td></tr>
@@ -101,12 +102,12 @@
     </table>
 
     <h3>5. reviews — what a tourist thought of a provider</h3>
-    <p>One row per review. It links to the provider and the tourist. One tourist can review one provider only once (the pair is UNIQUE). The rating is 1 to 5.</p>
-    <table>
+    <p>One row per review. It links to the provider and the tourist. One tourist can review one provider only once (the pair is UNIQUE). The rating is 1 to 5. A review row cannot exist without its completed booking: the review is only allowed after the service is finished.</p>
+    <table class="guide-table">
       <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
       <tr><td><code>id</code></td><td>INTEGER</td><td>PK</td><td>Auto-increment</td></tr>
-      <tr><td><code>provider_id</code></td><td>INTEGER</td><td>FK &rarr; providers(id)</td><td>NOT NULL</td></tr>
-      <tr><td><code>tourist_id</code></td><td>INTEGER</td><td>FK &rarr; users(id)</td><td>NOT NULL</td></tr>
+      <tr><td><code>provider_id</code></td><td>INTEGER</td><td>FK → providers(id)</td><td>NOT NULL</td></tr>
+      <tr><td><code>tourist_id</code></td><td>INTEGER</td><td>FK → users(id)</td><td>NOT NULL</td></tr>
       <tr><td><code>rating</code></td><td>INTEGER</td><td></td><td>NOT NULL, must be 1–5</td></tr>
       <tr><td><code>comment</code></td><td>TEXT</td><td></td><td>NOT NULL</td></tr>
       <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td></td><td>NOT NULL</td></tr>
@@ -114,13 +115,13 @@
     </table>
 
     <h3>6. messages — chat between people</h3>
-    <p>One row per message. It links to the sender and the receiver (both in <code>users</code>), and to a request when the message is about one.</p>
-    <table>
+    <p>One row per message. It links to the sender and the receiver (both in <code>users</code>), and to a request when the message is about one. A message row cannot exist without its request: threads hang off the request, so communication stays anchored.</p>
+    <table class="guide-table">
       <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
       <tr><td><code>id</code></td><td>INTEGER</td><td>PK</td><td>Auto-increment</td></tr>
-      <tr><td><code>sender_id</code></td><td>INTEGER</td><td>FK &rarr; users(id)</td><td>NOT NULL</td></tr>
-      <tr><td><code>receiver_id</code></td><td>INTEGER</td><td>FK &rarr; users(id)</td><td>NOT NULL</td></tr>
-      <tr><td><code>request_id</code></td><td>INTEGER</td><td>FK &rarr; requests(id)</td><td>Can be empty</td></tr>
+      <tr><td><code>sender_id</code></td><td>INTEGER</td><td>FK → users(id)</td><td>NOT NULL</td></tr>
+      <tr><td><code>receiver_id</code></td><td>INTEGER</td><td>FK → users(id)</td><td>NOT NULL</td></tr>
+      <tr><td><code>request_id</code></td><td>INTEGER</td><td>FK → requests(id)</td><td>Can be empty</td></tr>
       <tr><td><code>body</code></td><td>TEXT</td><td></td><td>NOT NULL — the message text</td></tr>
       <tr><td><code>is_read</code></td><td>BOOLEAN</td><td></td><td>NOT NULL, DEFAULT FALSE</td></tr>
       <tr><td><code>sent_at</code></td><td>TIMESTAMP</td><td></td><td>NOT NULL</td></tr>
@@ -128,19 +129,19 @@
 
     <h3>7. favorites — providers a tourist saved</h3>
     <p>One row per saved provider. The pair (user_id, provider_id) is the key, so a tourist cannot save the same provider twice.</p>
-    <table>
+    <table class="guide-table">
       <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
-      <tr><td><code>user_id</code></td><td>INTEGER</td><td>PK, FK &rarr; users(id)</td><td>Part of the key</td></tr>
-      <tr><td><code>provider_id</code></td><td>INTEGER</td><td>PK, FK &rarr; providers(id)</td><td>Part of the key</td></tr>
+      <tr><td><code>user_id</code></td><td>INTEGER</td><td>PK, FK → users(id)</td><td>Part of the key</td></tr>
+      <tr><td><code>provider_id</code></td><td>INTEGER</td><td>PK, FK → providers(id)</td><td>Part of the key</td></tr>
       <tr><td><code>saved_at</code></td><td>TIMESTAMP</td><td></td><td>NOT NULL</td></tr>
     </table>
 
     <h3>8. activity_log — a diary of what happened</h3>
     <p>One row per action: who did it, what they did, which table it touched. The administrator reads this to see what happened on the site.</p>
-    <table>
+    <table class="guide-table">
       <tr><th>Column</th><th>Type</th><th>Key</th><th>Rule</th></tr>
       <tr><td><code>id</code></td><td>INTEGER</td><td>PK</td><td>Auto-increment</td></tr>
-      <tr><td><code>actor_id</code></td><td>INTEGER</td><td>FK &rarr; users(id)</td><td>Can be empty</td></tr>
+      <tr><td><code>actor_id</code></td><td>INTEGER</td><td>FK → users(id)</td><td>Can be empty</td></tr>
       <tr><td><code>action</code></td><td>VARCHAR(60)</td><td></td><td>NOT NULL (for example LOGIN, VERIFY_PROVIDER)</td></tr>
       <tr><td><code>entity</code></td><td>VARCHAR(60)</td><td></td><td>NOT NULL — the table affected</td></tr>
       <tr><td><code>entity_id</code></td><td>INTEGER</td><td></td><td>Can be empty</td></tr>
@@ -151,19 +152,20 @@
     <h2>How the tables connect</h2>
     <p>Read it like a family tree. One user can be one provider. One provider has many requests and many reviews. One request has many messages and one payment. One tourist sends many requests and many reviews.</p>
     <ul>
-      <li><code>users</code> &rarr; <code>providers</code>: one person, one profile.</li>
-      <li><code>users</code> &rarr; <code>requests</code>: one tourist, many requests.</li>
-      <li><code>providers</code> &rarr; <code>requests</code>: one provider, many requests.</li>
-      <li><code>requests</code> &rarr; <code>payments</code>: one request, one payment.</li>
-      <li><code>requests</code> &rarr; <code>messages</code>: one request, many messages.</li>
-      <li><code>providers</code> &rarr; <code>reviews</code>: one provider, many reviews.</li>
-      <li><code>users</code> &rarr; <code>favorites</code>: one tourist, many saved providers.</li>
-      <li><code>users</code> &rarr; <code>activity_log</code>: one person, many logged actions.</li>
+      <li><code>users</code> → <code>providers</code>: one person, one profile.</li>
+      <li><code>users</code> → <code>requests</code>: one tourist, many requests.</li>
+      <li><code>providers</code> → <code>requests</code>: one provider, many requests.</li>
+      <li><code>requests</code> → <code>payments</code>: one request, one payment.</li>
+      <li><code>requests</code> → <code>messages</code>: one request, many messages.</li>
+      <li><code>providers</code> → <code>reviews</code>: one provider, many reviews.</li>
+      <li><code>users</code> → <code>favorites</code>: one tourist, many saved providers.</li>
+      <li><code>users</code> → <code>activity_log</code>: one person, many logged actions.</li>
     </ul>
     <p>The rule that keeps it safe: a review cannot be stored without its provider and tourist, a message cannot be stored without its sender and receiver, and a payment cannot be stored without its request. The foreign keys enforce that.</p>
 
     <p>Source: Table 4.3, Database tables of the NativeGo platform, and the Database Schema document (8 tables, 3NF). The prototype uses SQLite; the production path is PostgreSQL.</p>
   </main>
+
   <aside>
     <h2>Quick links</h2>
     <ul>
@@ -173,8 +175,11 @@
       <li><a href="../index.html">Back to the main site</a></li>
     </ul>
   </aside>
+
   <footer>
     <p>NativeGo — a simple guide. Built from the project document, Chapters 1–4.</p>
   </footer>
+<!-- main.js: the site's JavaScript. One file, linked from every page. -->
+  <script src="../js/main.js"></script>
 </body>
 </html>

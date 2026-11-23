@@ -2,28 +2,22 @@
 <!-- index.html — the home page of the NativeGo website. -->
 <html lang="en">
 <head>
-  <!-- charset tells the browser this page uses UTF-8, so characters like é display correctly. -->
   <meta charset="UTF-8">
-  <!-- viewport tells a phone to show the page at its real screen width instead of
-       shrinking a desktop page down. Without it, the phone layout never kicks in. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NativeGo — Find a Verified Local Guide in Kenya</title>
-  <!-- One shared stylesheet for the whole site. Every page links this same file,
-       so the header, colours and layout stay identical everywhere. -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- header: the top banner, the same on every page. It holds the site name
-       and a one-line promise of what NativeGo does. -->
   <header>
     <h1>NativeGo</h1>
     <p>Travel Kenya with a verified local guide by your side.</p>
   </header>
 
-  <!-- nav: the main menu, the same on every page. The list is styled as one
-       Flexbox row in the stylesheet, with no bullet points. -->
   <nav>
-    <ul>
+    <!-- The Menu button: only shown on a phone, where the 13 links do not
+         fit in one row. JavaScript opens and closes the menu with it. -->
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <ul id="main-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="guides.html">Guides</a></li>
@@ -40,11 +34,7 @@
     </ul>
   </nav>
 
-  <!-- main: the page's own content. Each page has different content here,
-       but the header, nav, aside and footer around it stay the same. -->
   <main>
-    <!-- Hero section: the first thing a visitor reads. It states the problem
-         NativeGo solves and ends with a button to the request form. -->
     <section>
       <h2>See Kenya through local eyes</h2>
       <p>NativeGo connects tourists with verified local guides across Kenya. Instead of guessing
@@ -54,8 +44,6 @@
       <a class="button" href="request.html">Request a Guide</a>
     </section>
 
-    <!-- How it works, in brief. The full five steps live on the How It Works
-         page, so this page only says enough to send a visitor there. -->
     <section>
       <h2>How it works</h2>
       <p>Send a request, meet your matched guide, and explore — then rate them so the
@@ -63,8 +51,6 @@
       <p><a href="how-it-works.html">See the five steps</a></p>
     </section>
 
-    <!-- The guides themselves live on the Guides page, so this page only
-         points there instead of repeating their profiles. -->
     <section>
       <h2>Meet the guides</h2>
       <p>City walkers, safari guides, coastal hosts and mountain leaders — every one
@@ -72,7 +58,6 @@
       <p><a href="guides.html">See all guides</a></p>
     </section>
 
-    <!-- Closing call to action. -->
     <section>
       <h2>Ready to travel differently?</h2>
       <p>Whether it is a morning in Karura Forest or a week along the coast, a local guide turns
@@ -81,8 +66,6 @@
     </section>
   </main>
 
-  <!-- aside: useful side information. On this page it is the helpline and a
-       booking tip, so the column is never empty. -->
   <aside>
     <h2>Need help?</h2>
     <p>Helpline: +254 712 345 678 (Monday to Saturday).</p>
@@ -90,9 +73,10 @@
       three days ahead when you can.</p>
   </aside>
 
-  <!-- footer: the same closing line on every page. -->
   <footer>
     <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
   </footer>
+<!-- main.js: the site's JavaScript. One file, linked from every page. -->
+  <script src="js/main.js"></script>
 </body>
 </html>

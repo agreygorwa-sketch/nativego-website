@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- messages.html — the messaging page (FR-06, wireframe 4.10). -->
+<!-- messages.html — the messaging page (FR-06, wireframe 4.10). Message threads hang off the request: messaging is per-request, not a general chat. -->
 <html lang="en-GB">
 <head>
   <meta charset="UTF-8">
@@ -14,7 +14,10 @@
   </header>
 
   <nav>
-    <ul>
+    <!-- The Menu button: only shown on a phone, where the 13 links do not
+         fit in one row. JavaScript opens and closes the menu with it. -->
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <ul id="main-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="guides.html">Guides</a></li>
@@ -38,6 +41,9 @@
         request. You agree the meeting point, the time, and any last details.
         Every message is stored linked to the request, so the whole conversation
         stays in one thread.</p>
+      <p>Message threads hang off the request: there is no general chat. Each
+        thread belongs to one request, between the tourist and the provider on
+        that request only.</p>
     </section>
 
     <section>
@@ -95,5 +101,7 @@
   <footer>
     <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
   </footer>
+<!-- main.js: the site's JavaScript. One file, linked from every page. -->
+  <script src="js/main.js"></script>
 </body>
 </html>

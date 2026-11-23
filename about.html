@@ -3,23 +3,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- viewport: tells a phone to use its real screen width, so the single-column
-       layout in the media query can take over on small screens. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About NativeGo — Our Mission and Guide Verification</title>
-  <!-- The one shared stylesheet: the same file linked from every page. -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- header: same banner as every page. -->
   <header>
     <h1>NativeGo</h1>
     <p>Travel Kenya with a verified local guide by your side.</p>
   </header>
 
-  <!-- nav: same menu as every page, styled as one Flexbox row. -->
   <nav>
-    <ul>
+    <!-- The Menu button: only shown on a phone, where the 13 links do not
+         fit in one row. JavaScript opens and closes the menu with it. -->
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <ul id="main-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="guides.html">Guides</a></li>
@@ -36,7 +34,6 @@
     </ul>
   </nav>
 
-  <!-- main: this page's own content. -->
   <main>
     <section>
       <h2>About NativeGo</h2>
@@ -54,7 +51,6 @@
         visible profiles, public reviews and a fair way to be found and paid.</p>
     </section>
 
-    <!-- Verification steps, shown as cards that wrap on narrow screens. -->
     <section>
       <h2>How guides are verified</h2>
       <p>No one appears on NativeGo without passing these checks:</p>
@@ -87,18 +83,16 @@
     </section>
   </main>
 
-  <!-- aside: where to see the guides and trips, so the side column points
-       somewhere useful instead of repeating the opening hours (which live
-       on the Contact page). -->
   <aside>
     <h2>See it in action</h2>
     <p><a href="guides.html">Meet the verified guides</a></p>
     <p><a href="experiences.html">Browse the experiences</a></p>
   </aside>
 
-  <!-- footer: same on every page. -->
   <footer>
     <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
   </footer>
+<!-- main.js: the site's JavaScript. One file, linked from every page. -->
+  <script src="js/main.js"></script>
 </body>
 </html>

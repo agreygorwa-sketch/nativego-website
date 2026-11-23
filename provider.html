@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- provider.html — a provider profile page (FR-04, wireframe 4.8). -->
+<!-- provider.html — a provider profile page (FR-04, wireframe 4.8). Verification status and reviews sit at the top, above the fold. -->
 <html lang="en-GB">
 <head>
   <meta charset="UTF-8">
@@ -14,7 +14,10 @@
   </header>
 
   <nav>
-    <ul>
+    <!-- The Menu button: only shown on a phone, where the 13 links do not
+         fit in one row. JavaScript opens and closes the menu with it. -->
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <ul id="main-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="guides.html">Guides</a></li>
@@ -33,9 +36,28 @@
 
   <main>
     <section>
-      <h2>Mara Savannah Safaris</h2>
+      <h2>Verification status</h2>
       <p><strong>Verified provider.</strong> The administrator checked this
         provider's documents and approved them, so they appear in search.</p>
+      <p>No provider becomes visible to tourists until the administrator has
+        approved them. That is the trust gate: verification comes before
+        listing. A provider whose documents are still waiting is hidden.</p>
+    </section>
+
+    <section>
+      <h2>Reviews</h2>
+      <p>Two tourists reviewed this provider. Both gave 5 stars. Every review
+        here comes from a completed booking.</p>
+      <ul>
+        <li><strong>5 out of 5:</strong> "David spotted leopards twice in one day. Best safari of my life!"</li>
+        <li><strong>5 out of 5:</strong> "Professional, punctual, and knows the Mara like the back of his hand."</li>
+      </ul>
+      <p>See all reviews on the <a href="reviews.html">Reviews page</a>. To leave
+        a review yourself, open the live profile after your trip.</p>
+    </section>
+
+    <section>
+      <h2>Mara Savannah Safaris</h2>
       <table>
         <caption>Provider profile</caption>
         <tbody>
@@ -49,17 +71,6 @@
       </table>
       <p><a href="http://localhost:5050/provider/1">Open this profile on the live system</a>
         to send a request, message the provider, or leave a review.</p>
-    </section>
-
-    <section>
-      <h2>Reviews</h2>
-      <p>Two tourists reviewed this provider. Both gave 5 stars.</p>
-      <ul>
-        <li><strong>5 out of 5:</strong> "David spotted leopards twice in one day. Best safari of my life!"</li>
-        <li><strong>5 out of 5:</strong> "Professional, punctual, and knows the Mara like the back of his hand."</li>
-      </ul>
-      <p>See all reviews on the <a href="reviews.html">Reviews page</a>. To leave
-        a review yourself, open the live profile after your trip.</p>
     </section>
 
     <section>
@@ -89,5 +100,7 @@
   <footer>
     <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
   </footer>
+<!-- main.js: the site's JavaScript. One file, linked from every page. -->
+  <script src="js/main.js"></script>
 </body>
 </html>

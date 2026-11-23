@@ -5,20 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NativeGo — How It Fits Together</title>
   <link rel="stylesheet" href="../css/style.css">
-  <style>
-    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
-    th, td { border: 1px solid #172554; padding: 0.5rem; text-align: left; vertical-align: top; }
-    th { background-color: #1D4ED8; color: #FFFFFF; }
-    code { background: #FFFFFF; padding: 0.1rem 0.3rem; }
-  </style>
 </head>
 <body>
   <header>
     <h1>NativeGo — How It Fits Together</h1>
     <p>One full journey, step by step, showing which part does what: HTML, CSS, Flask, or the database.</p>
   </header>
+
   <nav>
-    <ul>
+    <!-- The Menu button: only shown on a phone. JavaScript opens and
+         closes the menu with it. -->
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="guide-nav">Menu</button>
+    <ul id="guide-nav">
       <li><a href="../index.html">NativeGo home</a></li>
       <li><a href="index.html">Guide home</a></li>
       <li><a href="requirements.html">Requirements</a></li>
@@ -26,10 +24,11 @@
       <li><a href="how-it-works.html">How it fits together</a></li>
     </ul>
   </nav>
+
   <main>
     <h2>The journey: a tourist books a safari guide</h2>
     <p>Follow one tourist, Wanjiku, from start to finish. Each step names the requirement, the page, and the table.</p>
-    <table>
+    <table class="guide-table">
       <tr><th>Step</th><th>What happens</th><th>Requirement</th><th>What does the work</th><th>Database table</th></tr>
       <tr><td>1</td><td>Wanjiku opens the site and sees the home page, the guides, and the experiences.</td><td>—</td><td>HTML shows the page. CSS makes it blue and yellow.</td><td>— (reading only)</td></tr>
       <tr><td>2</td><td>Wanjiku registers: name, email, password.</td><td>FR-01</td><td>Flask checks the input, hashes the password, creates the account.</td><td><code>users</code> (one new row, role = tourist)</td></tr>
@@ -37,17 +36,18 @@
       <tr><td>4</td><td>Wanjiku searches: location "Maasai Mara", service "Safari Guide".</td><td>FR-03</td><td>Flask queries only verified providers, ranks by closeness.</td><td><code>providers</code>, <code>reviews</code> (for the rating)</td></tr>
       <tr><td>5</td><td>Wanjiku opens a provider profile and reads the reviews.</td><td>FR-04</td><td>Flask fetches the profile, services, and reviews.</td><td><code>providers</code>, <code>reviews</code></td></tr>
       <tr><td>6</td><td>Wanjiku sends a request: date, 2 guests, meeting point, notes.</td><td>FR-05</td><td>Flask creates a pending request and tells the provider.</td><td><code>requests</code> (one new row, status = pending)</td></tr>
-      <tr><td>7</td><td>The provider, David, sees the request and accepts it.</td><td>FR-13</td><td>Flask updates the status and tells Wanjiku.</td><td><code>requests</code> (status &rarr; accepted)</td></tr>
+      <tr><td>7</td><td>The provider, David, sees the request and accepts it.</td><td>FR-13</td><td>Flask updates the status and tells Wanjiku.</td><td><code>requests</code> (status → accepted)</td></tr>
       <tr><td>8</td><td>Wanjiku and David exchange messages about the meeting point.</td><td>FR-06</td><td>Flask stores each message linked to the request.</td><td><code>messages</code> (one row per message)</td></tr>
       <tr><td>9</td><td>After the safari, Wanjiku leaves a 5-star review.</td><td>FR-07</td><td>Flask checks the service is finished, stores the review, updates the average rating.</td><td><code>reviews</code> (one new row); <code>providers</code> (average_rating updated)</td></tr>
       <tr><td>10</td><td>The administrator sees the numbers: how many users, requests, reviews.</td><td>FR-19</td><td>Flask counts the rows and shows a dashboard.</td><td><code>users</code>, <code>requests</code>, <code>reviews</code></td></tr>
     </table>
+    <p>The request moves through states: pending → accepted or declined → completed → reviewed. Every state transition is validated server-side, so a request cannot skip from pending to reviewed. Only once the booking is marked completed does the review path unlock.</p>
 
     <h2>The provider side, in short</h2>
     <p>David registers as a provider (FR-09) — a row in <code>users</code> and a row in <code>providers</code>. His profile is hidden until the administrator approves him. He builds his profile (FR-10) — bio, languages, rates. He uploads his ID and certificate (FR-11) — files checked and stored, marked pending. He sets his free days (FR-12) — stored in <code>providers</code>, so he shows in search. The administrator checks his documents and approves him (FR-16) — <code>verified</code> becomes TRUE, and tourists can now find him.</p>
 
     <h2>Which part does what — the simple rule</h2>
-    <table>
+    <table class="guide-table">
       <tr><th>When you see or do this</th><th>The part that does it</th></tr>
       <tr><td>Words, headings, buttons, and form boxes on the page</td><td>HTML</td></tr>
       <tr><td>Colours, fonts, spacing, layout</td><td>CSS</td></tr>
@@ -59,10 +59,11 @@
     <p>HTML and CSS are files. They show the same page to everyone and they remember nothing. If Wanjiku registers and there is no database, her account is gone the moment she closes the page. The database is the memory: it stores the account, the request, the messages, and the review, so they are still there tomorrow, for the right people only.</p>
 
     <h2>What is already built, and what is not</h2>
-    <p>Built: the Flask system does all 19 requirements (FR-01 to FR-19). It has 121 tests that pass. It runs on a laptop at localhost:5050. The 9-page static website is the front of the shop. Not built yet: live hosting (so others can open it from their own phones), and live M-Pesa payment (the <code>payments</code> table is ready, but no real money moves yet — that is a future step, and it is marked as prospective in the project document).</p>
+    <p>Built: the Flask system does all 19 requirements (FR-01 to FR-19). It has 121 tests that pass. It runs on a laptop at localhost:5050. The 15-page static website is the front of the shop. Not built yet: live hosting (so others can open it from their own phones), and live M-Pesa payment (the <code>payments</code> table is ready, but no real money moves yet — that is a future step, and it is marked as prospective in the project document).</p>
 
     <p>Source: the requirements (Table 4.1) and the database (Table 4.3) in the project document (Chapters 1–4), and the built Flask system.</p>
   </main>
+
   <aside>
     <h2>Quick links</h2>
     <ul>
@@ -72,8 +73,11 @@
       <li><a href="../index.html">Back to the main site</a></li>
     </ul>
   </aside>
+
   <footer>
     <p>NativeGo — a simple guide. Built from the project document, Chapters 1–4.</p>
   </footer>
+<!-- main.js: the site's JavaScript. One file, linked from every page. -->
+  <script src="../js/main.js"></script>
 </body>
 </html>

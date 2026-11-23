@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-<!-- guides.html — the guides on offer: profile cards plus a full comparison table. -->
+<!-- guides.html — the guides on offer: search (FR-03), profile cards, and a comparison table. Search results are led by proximity and rating (wireframe 4.7). -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- viewport: lets phones use their real width so the media query can stack
-       the page into one column at 700px and below. -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meet the Guides — NativeGo</title>
-  <!-- The one shared stylesheet, linked from every page. -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- header: same banner as every page. -->
   <header>
     <h1>NativeGo</h1>
     <p>Travel Kenya with a verified local guide by your side.</p>
   </header>
 
-  <!-- nav: same menu as every page, one Flexbox row with no bullets. -->
   <nav>
-    <ul>
+    <!-- The Menu button: only shown on a phone, where the 13 links do not
+         fit in one row. JavaScript opens and closes the menu with it. -->
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <ul id="main-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="guides.html">Guides</a></li>
@@ -36,7 +34,6 @@
     </ul>
   </nav>
 
-  <!-- main: this page's own content. -->
   <main>
     <section>
       <h2>Meet the guides</h2>
@@ -44,16 +41,13 @@
         park fees, transport and meals are agreed with the guide before the trip.</p>
     </section>
 
-    <!-- Search (FR-03). A GET form: the browser sends the answers in the
-         address bar to the live system, which returns only matching verified
-         providers. GET needs no login and no CSRF token, so this form works
-         from this static page when the NativeGo system is running on your
-         computer at localhost:5050. -->
     <section>
       <h2>Search verified guides</h2>
       <p>Search by place, service, or words. Only verified guides are shown.
         This search runs on the live system, so the system must be running on
         your computer (see <a href="how-it-works.html">How It Works</a>).</p>
+      <p>Results are ranked by proximity first, then by rating — the nearest
+        highly rated guides come first.</p>
       <form action="http://localhost:5050/discover" method="get">
         <label for="q">Search words</label>
         <input type="text" id="q" name="q" placeholder="Example: safari, dhow, Nairobi">
@@ -93,7 +87,15 @@
         to see their full profile, reviews, and how to request them.</p>
     </section>
 
-    <!-- Guide profile cards. The row wraps onto new lines on narrow screens. -->
+    <section>
+      <h2>Filter the guides below</h2>
+      <p>Type to narrow the list — no need to press anything. This filter runs
+        entirely in your browser and only hides cards and rows on this page.</p>
+      <label for="guide-filter">Filter guides</label>
+      <input type="search" id="guide-filter" name="guide-filter" placeholder="Type a name, place, language, or speciality">
+      <p id="filter-empty" hidden>No guides match your search.</p>
+    </section>
+
     <section>
       <h2>Featured profiles</h2>
       <div class="cards">
@@ -132,13 +134,6 @@
       </div>
     </section>
 
-    <!-- Comparison table. The caption names the table for everyone, including
-         screen readers. scope="col" on a header cell says "this header belongs
-         to the whole column below it"; scope="row" says "this header belongs
-         to the whole row beside it". thead holds the headers, tbody the data
-         rows, tfoot the summary row at the bottom. -->
-    <!-- The table-scroll wrapper lets a wide table scroll inside its own box
-         on a phone instead of pushing the whole page sideways. -->
     <section>
       <h2>All guides at a glance</h2>
       <div class="table-scroll">
@@ -217,7 +212,6 @@
     </section>
   </main>
 
-  <!-- aside: a tip for choosing a guide, so the side column is useful. -->
   <aside>
     <h2>Choosing a guide</h2>
     <p>Match the speciality to your trip, not just the rating. A 4.7 beach guide will
@@ -225,9 +219,10 @@
     <p>Check languages too: a guide who speaks your language makes the whole day easier.</p>
   </aside>
 
-  <!-- footer: same on every page. -->
   <footer>
     <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
   </footer>
+<!-- main.js: the site's JavaScript. One file, linked from every page. -->
+  <script src="js/main.js"></script>
 </body>
 </html>

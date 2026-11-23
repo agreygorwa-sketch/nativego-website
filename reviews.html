@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- reviews.html — the reviews page (FR-07, wireframe 4.11). -->
+<!-- reviews.html — the reviews page (FR-07, wireframe 4.11). Reviews are transaction-verified: only a completed booking can be reviewed. -->
 <html lang="en-GB">
 <head>
   <meta charset="UTF-8">
@@ -14,7 +14,10 @@
   </header>
 
   <nav>
-    <ul>
+    <!-- The Menu button: only shown on a phone, where the 13 links do not
+         fit in one row. JavaScript opens and closes the menu with it. -->
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <ul id="main-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="guides.html">Guides</a></li>
@@ -37,6 +40,10 @@
       <p>After a trip, a tourist rates the provider 1 to 5 stars and writes a
         comment. The review is stored, and the provider's average rating is
         updated. Reviews are how the next tourist decides whom to trust.</p>
+      <p>A review is only allowed after a completed booking. The review form
+        opens only once the booking is marked completed, so every review on
+        this site comes from a real trip. That is the transaction-verified
+        rule: no completed booking, no review.</p>
     </section>
 
     <section>
@@ -105,5 +112,7 @@
   <footer>
     <p>NativeGo — connecting tourists with verified local guides in Kenya.</p>
   </footer>
+<!-- main.js: the site's JavaScript. One file, linked from every page. -->
+  <script src="js/main.js"></script>
 </body>
 </html>
